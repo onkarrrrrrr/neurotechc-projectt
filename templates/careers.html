@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Careers - NeuroTechC{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Background Image and Gradient Overlay -->
+<section class="relative w-full h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 w-full h-full">
+        <img src="{% static 'images/careers_hero.png' %}" alt="Neurotech Careers" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/60 dark:bg-black/70 backdrop-blur-[2px]"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto" data-aos="fade-up">
+        <h1 class="text-4xl md:text-5xl font-heading font-bold text-white mb-6 tracking-tight">
+            Build the Future of <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Silicon Design</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-200 leading-relaxed font-sans max-w-3xl mx-auto">
+            At Neurotech Circuit, we are pioneering enterprise-grade semiconductor design verification. Join a team of elite engineers dedicated to solving the world's most complex architectural challenges.
+        </p>
+    </div>
+</section>
+
+<!-- Why Join Us Section -->
+<section class="py-16 bg-gray-50 dark:bg-[#0a0a0a]">
+    <div class="container mx-auto px-6 max-w-7xl">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white mb-4">Why Join Us?</h2>
+            <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">We invest heavily in our team because we believe that the best silicon is built by the best people.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Benefit 1 -->
+            <div class="premium-card dark:glass-card-dark p-8 rounded-2xl flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-6 text-blue-600 dark:text-blue-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Cutting-Edge Projects</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Work on complex SOCs, RISC-V architectures, and advanced ASIC verifications using industry-leading methodologies.</p>
+            </div>
+            
+            <!-- Benefit 2 -->
+            <div class="premium-card dark:glass-card-dark p-8 rounded-2xl flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mb-6 text-emerald-600 dark:text-emerald-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Continuous Learning</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">We offer continuous mentorship programs, internal seminars, and resources to ensure your skills stay sharp.</p>
+            </div>
+
+            <!-- Benefit 3 -->
+            <div class="premium-card dark:glass-card-dark p-8 rounded-2xl flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-6 text-purple-600 dark:text-purple-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Inclusive Culture</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Join a supportive, diverse, and collaborative work environment where every engineer's voice is valued.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Jobs Listing Section -->
+<section class="py-16 bg-white dark:bg-[#111111] grid-bg" id="open-positions">
+    <div class="container mx-auto px-6 max-w-5xl">
+        <div class="text-center mb-10" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white mb-4">Open Positions</h2>
+            <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Explore our current openings and find where you fit perfectly.</p>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="premium-card dark:glass-card-dark p-6 rounded-2xl mb-10 shadow-sm" data-aos="fade-up">
+            <form method="GET" action="#open-positions" class="flex flex-col md:flex-row gap-5 items-end">
+                <div class="w-full md:w-2/5">
+                    <label for="experience" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Experience Level</label>
+                    <select name="experience" id="experience" class="w-full bg-gray-50 dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white rounded-lg focus:ring-black dark:focus:ring-white focus:border-black dark:focus:border-white block p-3 transition-colors">
+                        <option value="">All Levels</option>
+                        {% for value, label in experience_levels %}
+                            <option value="{{ value }}" {% if value == selected_experience %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="w-full md:w-2/5">
+                    <label for="type" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Employment Type</label>
+                    <select name="type" id="type" class="w-full bg-gray-50 dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white rounded-lg focus:ring-black dark:focus:ring-white focus:border-black dark:focus:border-white block p-3 transition-colors">
+                        <option value="">All Types</option>
+                        {% for value, label in employment_types %}
+                            <option value="{{ value }}" {% if value == selected_type %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="w-full md:w-1/5">
+                    <button type="submit" class="w-full bg-black dark:bg-white text-white dark:text-black font-semibold rounded-lg px-5 py-3 hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors shadow-md hover:shadow-lg">
+                        Filter
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Jobs Listing -->
+        <div class="flex flex-col gap-5">
+            {% if jobs %}
+                {% for job in jobs %}
+                    <div class="premium-card dark:glass-card-dark p-6 md:p-8 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group hover:border-black/30 dark:hover:border-white/30 transition-all duration-300 relative overflow-hidden" data-aos="fade-up">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-black dark:bg-white transform scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom"></div>
+                        
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                {{ job.job_title }}
+                            </h3>
+                            
+                            <div class="flex flex-wrap gap-3">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    {{ job.get_experience_level_display }}
+                                </span>
+                                
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    {{ job.get_employment_type_display }}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="w-full md:w-auto flex-shrink-0 mt-4 md:mt-0">
+                            <a href="{{ job.apply_link }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full md:w-auto px-8 py-3 rounded-xl font-semibold bg-black text-white dark:bg-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 transition-all shadow-md hover:shadow-lg group-hover:-translate-y-1">
+                                Apply Now
+                                <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="premium-card dark:glass-card-dark text-center py-16 rounded-2xl shadow-sm" data-aos="fade-up">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 dark:bg-gray-800/50 text-gray-400 mb-4">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">No positions available</h3>
+                    <p class="text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-6">We currently don't have any open positions matching your criteria. Please check back later or adjust your filters.</p>
+                    <a href="{% url 'careers' %}#open-positions" class="inline-flex font-semibold text-black dark:text-white hover:underline transition-colors">Clear Filters</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

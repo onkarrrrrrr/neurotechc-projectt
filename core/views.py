@@ -4,6 +4,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import AppointmentForm
+from .models import Job
 from .db import (
     save_appointment_to_mongodb,
     get_all_appointments,
@@ -29,8 +30,34 @@ def product(request):
 def methodology(request):
     return render(request, 'methodology.html')
 
+def resources(request):
+    return render(request, 'resources.html')
+
 def about(request):
     return render(request, 'about.html')
+
+def careers(request):
+    experience_filter = request.GET.get('experience', '')
+    employment_type_filter = request.GET.get('type', '')
+    
+    jobs = Job.objects.filter(is_active=True)
+    
+    if experience_filter:
+        jobs = jobs.filter(experience_level=experience_filter)
+    if employment_type_filter:
+        jobs = jobs.filter(employment_type=employment_type_filter)
+    
+
+    
+    context = {
+        'jobs': jobs,
+        'experience_levels': Job.EXPERIENCE_LEVEL_CHOICES,
+        'employment_types': Job.EMPLOYMENT_TYPE_CHOICES,
+        'selected_experience': experience_filter,
+        'selected_type': employment_type_filter,
+    }
+    
+    return render(request, 'careers.html', context)
 
 def contact(request):
     if request.method == 'POST':

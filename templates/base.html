@@ -52,16 +52,16 @@
     </script>
 
     <style>
-        body {
-            background-color: #ffffff;
-            color: #000000;
-        }
-        
         .premium-card {
             background: #ffffff;
             border: 1px solid #eaeaea;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
             transition: all 0.3s ease;
+        }
+        
+        .dark .premium-card {
+            background: #111111;
+            border-color: #222222;
         }
         
         .premium-card:hover {
@@ -83,13 +83,23 @@
             background-size: 50px 50px;
         }
         
+        .dark .grid-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+        
         /* Dark mode specific glassmorphism */
         .dark .glass-card-dark {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .glass-card-dark:hover, .dark .premium-card:hover {
+            border-color: rgba(255, 255, 255, 0.25) !important;
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
         
         .dark .navbar-scrolled {
@@ -168,8 +178,12 @@
                         </div>
                     </div>
                 </div>
+
+                <a href="{% url 'careers' %}" class="{% if request.resolver_match.url_name == 'careers' %}text-black dark:text-white after:w-full{% else %}text-muted dark:text-gray-400 hover:text-black dark:hover:text-white after:w-0{% endif %} transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:bg-black dark:after:bg-white after:transition-all hover:after:w-full">Careers</a>
                 
                 <a href="{% url 'methodology' %}" class="{% if request.resolver_match.url_name == 'methodology' %}text-black dark:text-white after:w-full{% else %}text-muted dark:text-gray-400 hover:text-black dark:hover:text-white after:w-0{% endif %} transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:bg-black dark:after:bg-white after:transition-all hover:after:w-full">Methodology</a>
+                
+                <a href="{% url 'resources' %}" class="{% if request.resolver_match.url_name == 'resources' %}text-black dark:text-white after:w-full{% else %}text-muted dark:text-gray-400 hover:text-black dark:hover:text-white after:w-0{% endif %} transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:bg-black dark:after:bg-white after:transition-all hover:after:w-full">Resources</a>
                 
                 <a href="{% url 'product' %}" class="{% if request.resolver_match.url_name == 'product' %}text-black dark:text-white after:w-full{% else %}text-muted dark:text-gray-400 hover:text-black dark:hover:text-white after:w-0{% endif %} transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-px after:bg-black dark:after:bg-white after:transition-all hover:after:w-full">Product</a>
                 
@@ -223,7 +237,9 @@
                         <a href="{% url 'services' %}" class="text-[#555] hover:text-black text-xs font-mono uppercase">All Services &rarr;</a>
                     </div>
                 </div>
+                <a href="{% url 'careers' %}" class="{% if request.resolver_match.url_name == 'careers' %}text-black font-semibold border-l-2 border-black pl-2{% else %}text-muted hover:text-black font-medium{% endif %}">Careers</a>
                 <a href="{% url 'methodology' %}" class="{% if request.resolver_match.url_name == 'methodology' %}text-black font-semibold border-l-2 border-black pl-2{% else %}text-muted hover:text-black font-medium{% endif %}">Methodology</a>
+                <a href="{% url 'resources' %}" class="{% if request.resolver_match.url_name == 'resources' %}text-black font-semibold border-l-2 border-black pl-2{% else %}text-muted hover:text-black font-medium{% endif %}">Resources</a>
                 <a href="{% url 'product' %}" class="{% if request.resolver_match.url_name == 'product' %}text-black font-semibold border-l-2 border-black pl-2{% else %}text-muted hover:text-black font-medium{% endif %}">Product</a>
                 <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}text-black font-semibold border-l-2 border-black pl-2{% else %}text-muted hover:text-black font-medium{% endif %}">About Us</a>
                 <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}text-black font-bold border-l-2 border-black pl-2{% else %}text-black font-semibold{% endif %} mt-2">Contact &rarr;</a>
@@ -266,7 +282,7 @@
                     <ul class="space-y-4 text-sm text-muted dark:text-gray-400">
                         <li><a href="{% url 'about' %}" class="hover:text-black dark:hover:text-white transition-colors font-medium">About Us</a></li>
                         <li><a href="{% url 'methodology' %}" class="hover:text-black dark:hover:text-white transition-colors font-medium">Methodology</a></li>
-                        <li><a href="{% url 'contact' %}" class="hover:text-black dark:hover:text-white transition-colors font-medium">Careers</a></li>
+                        <li><a href="{% url 'careers' %}" class="hover:text-black dark:hover:text-white transition-colors font-medium">Careers</a></li>
                         <li><a href="{% url 'contact' %}" class="hover:text-black dark:hover:text-white transition-colors font-medium">Contact</a></li>
                     </ul>
                 </div>

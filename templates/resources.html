@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Resources - NeuroTechC{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 dark:bg-[#0a0a0a] min-h-screen py-16">
+    <div class="container mx-auto px-6 max-w-4xl">
+        
+        <!-- Header -->
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h1 class="text-4xl md:text-5xl font-heading font-bold text-gray-900 dark:text-white mb-4">Research & Resources</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400">Insights, methodologies, and technical papers from our experts.</p>
+        </div>
+
+        <!-- Paper Article -->
+        <article class="premium-card dark:glass-card-dark rounded-2xl overflow-hidden shadow-sm" data-aos="fade-up" data-aos-delay="100">
+            <!-- Article Header -->
+            <div class="bg-white dark:bg-[#111111] p-8 md:p-12 border-b border-gray-100 dark:border-white/10">
+                <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 rounded-full text-xs font-semibold tracking-wider uppercase mb-6">Research Paper</span>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                    Performing End-to-End Traffic Traceability Using Functional Coverage
+                </h2>
+                <div class="flex flex-col md:flex-row md:items-center gap-4 text-gray-600 dark:text-gray-400 font-medium">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center font-bold text-gray-600 dark:text-gray-300">
+                            SV
+                        </div>
+                        <div>
+                            <p class="text-gray-900 dark:text-white font-semibold">Shailesh Vasekar</p>
+                            <p class="text-sm">Director, Neurotech Circuits Private Limited</p>
+                        </div>
+                    </div>
+                    <div class="hidden md:block w-px h-8 bg-gray-300 dark:bg-gray-700"></div>
+                    <div class="text-sm flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        April 01, 2020
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article Content -->
+            <div class="p-8 md:p-12 prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
+                
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">Story</h3>
+                <p class="mb-6 leading-relaxed">
+                    For each of the functional features of a DUT to verify, all possible stimulus generation is developed through test cases and with the help of scoreboard, models, checkers, and assertions.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    Most of the time, defining functional coverage goals is done during the process of test plan preparation. For each of the functional features of a device under test (DUT) to verify, all possible stimulus generation is developed through test cases and with the help of scoreboard, models, checkers, and assertions. We confirm the correctness of DUT by checking responses for that stimulus. To make sure we have created enough combinations of input scenarios and DUT responses, coverage goals are defined for every feature in terms of covergroups, coverpoints, and assertions coverage which gives us confidence on how thoroughly particular feature has been verified.
+                </p>
+                <p class="mb-8 leading-relaxed">
+                    DUTs RTL blocks into variables defined out of a score of coverage class and using those variables in cross covergroups with different value hits will confirm that whether the input transactions have followed designated designed path to output or not. This is very important for a couple reasons. First, functional verification scoreboard does end to end transactions checks, but it does not confirm the DUT traffic path stimulus has followed. Secondly, individual covergroups or UVM RAL Regmodel functional coverage or assertion coverage will help at individual stimulus coverage but using in combination will make sure correctness of functional path. Let’s see in detail how we can use functional coverage to confirm traffic from input to output port traverse through desired data and control path.
+                </p>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Performing Traffic Traceability</h3>
+                <p class="mb-6 leading-relaxed">
+                    Many times, covering just individual features and cross features is not enough. There is an essential requirement to check if the traffic of input interfaces have reached to output interfaces of other ends by travelling through all possible combinations of different data blocks, various control logic and different DUT configurations.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    Having individual covergroups for DUT input, output interfaces, on control block interface, regmodel auto-generated functional coverage may not guarantee that based on register configurations. The input transactions, packet, or command has travelled through desired data blocks and control path or has bypassed a typical control block.
+                </p>
+                <p class="mb-8 leading-relaxed">
+                    Using cross-coverage, on the variables defined out of coverage class and used to store transactions from various write methods one can make sure those variables different values are hit and trace the designed DUT path. The covergroup will be also defined out of the coverage class.
+                </p>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Scenario</h3>
+                <p class="mb-6 leading-relaxed">
+                    Let’s consider a scenario, shown in Figure 1. In a DUT, which is highly configured and an input…a packet can be routed to output port through opted datapath and control path blocks and through selected packet Router port based on register configuration. Register CTRNL_RUT with field RT=2’b01 decides packet path from input port 1 through DataPath_blk1 using Cntrl_plan1, switch 1 (not shown in the diagram) and to Router port 1 and finally to output port 1. However, the register CTRNL_RUT.RT=2’b10 will change route for new incoming packet through DataPath_blk2 using Cntrl_plan2 and through Router port 2.
+                </p>
+                <p class="mb-10 leading-relaxed">
+                    In this case, the covergroups defined for datapath_block1, control path i.e. Cntrl_plane1 and register field RT will individually cover stimulus values. However, if variables are defined outside scope of coverage class, holding the values of signals from these interfaces and if used in cross coverages with interesting value then it can be confirmed that the packet has traversed correct path and achieve packet traceability.
+                </p>
+
+                <!-- Image / Figure 1 -->
+                <figure class="my-12">
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+                        <img src="{% static 'images/paper_figure_1.jpg' %}" alt="Traffic trace getting information at each point" class="w-full h-auto rounded-lg">
+                    </div>
+                    <figcaption class="text-center text-sm text-gray-500 dark:text-gray-400 mt-4 font-medium italic">
+                        Figure 1 : Traffic trace getting information at each point
+                    </figcaption>
+                </figure>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-12 mb-4">Coverage Implementation</h3>
+                <p class="mb-6 leading-relaxed">
+                    In a testbench, environment class typically has all interfaces agents, functional coverage and scoreboard instantiated in it. IO and control interfaces monitor’s analysis ports are connected to functional coverage class’s exports to get interface packets and transactions. Required resources like regmodel, different configuration objects will be set using uvm_condig_db construct to coverage class. Coverage implementation wise, define variables, packet storage elements outside of coverage class and use those to copy values of important interface signals, control signals and packet’s fields. These variables defined outside of coverage class will be used in cross coverages.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    As shown in above Figure 1, variables defined outside of coverage class will be used to save information like packet ids, valid for DataPath_blk1. And for control plane, save information like ready, status, destination id, routing channel numbers. Register values of fields such as CTRNL_RUT.RT values can be crossed with these variables to make sure that if field value of RT is 01 then Datapath_blk1 fields and control plan signals has interested values. Implementing the functional coverage with the approach mentioned will helpful especially in case of block and cluster level verification. Independent implementation of coverage class explores reusability options across projects with similar DUT interfaces.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    The register configuration information can also receive through the interface but again need to decode address and fields, so it will be meaningful to use regmodel. Regmodel comes with rich sets of API and default sequences to exercise all registers and fields with their attributes. The Regmodel based auto generated functional coverage can be treated separately.
+                </p>
+                <p class="mb-8 leading-relaxed">
+                    There is a known limitation with embedded covergroup. We cannot use the multiple instances of the same covergroup as the datatype, hence defining the covergroups outside of the functional coverage class will help to define an array of covergroups, especially it will help if most of the interfaces are of the same type, a usual case of networking domain DUT. The single covergroup with multiple instances can be sampled with different indexes in each of the write_<> methods of coverage class.
+                </p>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Code Example</h3>
+                <p class="mb-8 leading-relaxed text-gray-500 italic">
+                    In the above example, covergroup and variable are storing transactions & interface signals from write methods and are declared outside of class. This will allow these variables to be used across covergroups.
+                </p>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Conclusion</h3>
+                <p class="mb-12 leading-relaxed">
+                    Based on important interface signals, which will validate the transactions or packets, the global variable outside of coverage class scope can be defined and used to copy these signals. Same can be done with every interface signals, control signals and those many global variables can be used in one covergroup which will define the cross coverage for such variables. This is how you can confirm traffic from input to output port traverse through desired data and control path.
+                </p>
+
+                <!-- Author Box -->
+                <div class="bg-gray-50 dark:bg-[#1a1a1a] rounded-xl p-8 border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row gap-6 items-center md:items-start mt-12">
+                    <div class="w-24 h-24 flex-shrink-0 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-300 font-bold text-2xl">
+                        SV
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-2">About the Author</h4>
+                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
+                            <strong>Shailesh Vasekar</strong> is the Director of Neurotech Circuits Private Limited. He has worked in functional verification of ASICs and SOCs development in various domains like networking, consumer, communication. He has used advance verification methodologies like UVM, formal verification, functional coverage drive verification, assertions, SystemVerilog.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+
+    </div>
+</div>
+{% endblock %}
