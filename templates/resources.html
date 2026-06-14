@@ -122,6 +122,135 @@
             </div>
         </article>
 
+        <!-- Second Paper Article -->
+        <article class="premium-card dark:glass-card-dark rounded-2xl overflow-hidden shadow-sm mt-12" data-aos="fade-up" data-aos-delay="200">
+            <!-- Article Header -->
+            <div class="bg-white dark:bg-[#111111] p-8 md:p-12 border-b border-gray-100 dark:border-white/10">
+                <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 rounded-full text-xs font-semibold tracking-wider uppercase mb-6">Research Paper</span>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                    RISC-V source class riscv_asm_program_gen: The brain behind assembly instruction generator
+                </h2>
+                <div class="flex flex-col md:flex-row md:items-center gap-4 text-gray-600 dark:text-gray-400 font-medium">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center font-bold text-gray-600 dark:text-gray-300">
+                            SV
+                        </div>
+                        <div>
+                            <p class="text-gray-900 dark:text-white font-semibold">Shailesh Vasekar</p>
+                            <p class="text-sm">Director, Neurotech Circuits Private Limited</p>
+                        </div>
+                    </div>
+                    <div class="hidden md:block w-px h-8 bg-gray-300 dark:bg-gray-700"></div>
+                    <div class="text-sm flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        June 3, 2025
+                    </div>
+                </div>
+            </div>
+
+            <!-- Article Content -->
+            <div class="p-8 md:p-12 prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
+                
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">Abstract</h3>
+                <p class="mb-6 leading-relaxed">
+                    CHIPS Alliance has developed an open-source riscv-dv random instruction generator for RISC-V processor verification. This article focuses on the class riscv_asm_program_gen.sv and its various functions, which generate the complete RISC-V assembly program, which is then used to verify RISC-V IP. This class can also address any customization to RISC-V GPR or instruction.
+                </p>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Introduction</h3>
+                <p class="mb-6 leading-relaxed">
+                    The open source <a href="https://github.com/chipsalliance/riscv-dv/tree/master" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">https://github.com/chipsalliance/riscv-dv/tree/master</a> defines the SV UVM-based class structure very helpful in the verification of RISC-V IP. The generated random test can be added directly to run with the design IP. The various sections of the ASM program, such as initialization routine, instruction section, data section, stack section, page table, interrupt and exception handling, etc., are generated with different functions in the riscv_asm_program_gen class itself.
+                </p>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">First Thing First</h3>
+                <p class="mb-6 leading-relaxed">
+                    First, the class riscv_instr_gen_config is randomized from the test riscv_instr_base_test.sv. This randomization decides the RISC-V extension we are running with, the privilege mode supported, the instruction count in the main and subprogram, whether the program must generate break instructions using variable no_ebreak, similarly no_dret, no_fence, no_wfi, and such configurations.
+                </p>
+                <figure class="my-10">
+                    <img src="{% static 'images/riscv_paper_1.png' %}" alt="Configuration variables" class="w-full h-auto rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+                </figure>
+                <p class="mb-8 leading-relaxed">
+                    Many other such variables can be set to true or false based on DUT features and testbench stimulus generation requirements. The above snapshot lists very few of them.
+                </p>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Kick Start Function gen_program()</h3>
+                <p class="mb-6 leading-relaxed">
+                    The function gen_program() is the main function to generate all sections of the program. Once it’s called from upper layer, it calls other function from the riscv_asm_program_gen one by one.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    Then it calls function call get_directed_instr_stream(), selects the ratio of instruction generation from another function called add_directed_instr_stream().
+                </p>
+                <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-6 font-mono text-sm text-gray-800 dark:text-gray-200">
+                    riscv_asm_program_gen.sv(1552) @ 0: reporter [asm_gen] Adding directed instruction stream:riscv_jal_instr ratio: 30/1000
+                </div>
+                <figure class="my-10">
+                    <img src="{% static 'images/riscv_paper_2.png' %}" alt="Code snippet for stream insertion" class="w-full h-auto rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+                </figure>
+                <p class="mb-6 leading-relaxed">
+                    Next function call is to gen_program_header() and uses string array instr_stream to fill it up with header.
+                </p>
+                <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-6 font-mono text-sm text-gray-800 dark:text-gray-200">
+                    str[0] =.include “user_init.s”    //example output
+                </div>
+                <figure class="my-10">
+                    <img src="{% static 'images/riscv_paper_3.png' %}" alt="gen_program_header snippet" class="w-full h-auto rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+                </figure>
+                <p class="mb-6 leading-relaxed">
+                    The gen_program_header() function calls another function gen_section(“_start”, str); which inserts header instruction in the instr_stream.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    gen_program() then it calls init_gpr() function whose functionality to initialize general purpose registers with random value.
+                </p>
+                <figure class="my-10">
+                    <img src="{% static 'images/riscv_paper_4.png' %}" alt="init_gpr code snippet" class="w-full h-auto rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+                </figure>
+                <p class="mb-6 leading-relaxed">
+                    Next generate_directed_instr_stream() functions get call which decides the ratio and insert directed instruction stream and randomizes the instruction as well. The function randomizes and selects which rs1, rs2 and rd to use based on instruction type. This will generate the asm program which has the instructions with various GPRs x0 to x31 used in all instructions the post_random() function of riscv_instr helps here.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    Then sequence riscv_instr_sequence which has function generate_instr_stream which has now all the stream of instruction available and uses convert2asm() function.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    There are also check for any illegal or HINT instructions ration is defined, if they are 0 then no illegal or HINT instruction is generated.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    From riscv_asm_program_gen main_program[hart].generate_instr_stream() is called which convert the instruction stream to the string format.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    There is any sub_program instruction to generate then function call to function insert_sub_program(sub_program[hart], instr_stream);
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    Once the main and sub_program generation is done then host interface related instruction are added by gen_section function
+                </p>
+                <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-6 font-mono text-sm text-gray-800 dark:text-gray-200">
+                    str=write_tohost:<br>
+                    str= sw gp, tohost, t1<br>
+                    instr[0]=sw gp, tohost, t1<br>
+                    str=_exit:
+                </div>
+                <p class="mb-8 leading-relaxed">
+                    Then function push_gpr_to_kernel_stack() which pushes general purpose register to stack for trap handling. The riscv_asm_program uses gen_section() selects string for instruction str=mtvec_handler which has exception_hander and interrupt_handler defined.
+                </p>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Generated Program</h3>
+                <p class="mb-6 leading-relaxed">
+                    The function gen_program() and group of functions defined in the same class together with riscv_instruction_sequence and base test and other helper class generates full assembly language RISC-V program with random instructions, random GPR for each instruction with different patterns of instructions.
+                </p>
+                <figure class="my-10">
+                    <img src="{% static 'images/riscv_paper_5.png' %}" alt="Final generated assembly program snippet" class="w-full h-auto rounded-lg shadow-sm border border-gray-200 dark:border-gray-800">
+                </figure>
+                
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Summary of Generated Output</h3>
+                <p class="mb-6 leading-relaxed">
+                    The `gen_program()` function and associated helpers work in concert with the `riscv_instruction_sequence`, base test classes, and various configuration helpers to produce a complete RISC-V assembly program. These programs feature randomized instructions and register selections suitable for robust IP verification.
+                </p>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Conclusion</h3>
+                <p class="mb-12 leading-relaxed">
+                    The `riscv_asm_program_gen` class serves as a comprehensive utility to automate the generation of RISC-V assembly programs. Its modular function calls and rich configuration support make it a crucial component in the `riscv-dv` verification ecosystem.
+                </p>
+            </div>
+        </article>
+
     </div>
 </div>
 {% endblock %}
