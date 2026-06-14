@@ -9,7 +9,11 @@ from .db import (
     save_appointment_to_mongodb,
     get_all_appointments,
     update_appointment,
-    delete_appointment
+    delete_appointment,
+    get_all_jobs,
+    save_job_to_mongodb,
+    update_job,
+    delete_job
 )
 
 def home(request):
@@ -40,14 +44,28 @@ def careers(request):
     experience_filter = request.GET.get('experience', '')
     employment_type_filter = request.GET.get('type', '')
     
-    jobs = Job.objects.filter(is_active=True)
+    try:
+        all_jobs = get_all_jobs()
+    except Exception as e:
+        all_jobs = []
+        print(f"Error fetching jobs: {e}")
+        
+    jobs = []
+    exp_dict = dict(Job.EXPERIENCE_LEVEL_CHOICES)
+    emp_dict = dict(Job.EMPLOYMENT_TYPE_CHOICES)
     
-    if experience_filter:
-        jobs = jobs.filter(experience_level=experience_filter)
-    if employment_type_filter:
-        jobs = jobs.filter(employment_type=employment_type_filter)
-    
-
+    for job in all_jobs:
+        if not job.get('is_active', True):
+            continue
+            
+        if experience_filter and job.get('experience_level') != experience_filter:
+            continue
+        if employment_type_filter and job.get('employment_type') != employment_type_filter:
+            continue
+            
+        job['get_experience_level_display'] = exp_dict.get(job.get('experience_level'), '')
+        job['get_employment_type_display'] = emp_dict.get(job.get('employment_type'), '')
+        jobs.append(job)
     
     context = {
         'jobs': jobs,
@@ -74,11 +92,16 @@ def contact(request):
     
     return render(request, 'contact.html', {'form': form})
 
+from .forms import AppointmentForm, JobForm
+
+# ... (other imports) ...
+
 @staff_member_required(login_url='admin_login')
 def admin_dashboard(request):
     if request.method == 'POST':
         action = request.POST.get('action')
         appt_id = request.POST.get('appt_id')
+        job_id = request.POST.get('job_id')
         
         try:
             if action == 'confirm':
@@ -91,6 +114,20 @@ def admin_dashboard(request):
             elif action == 'delete':
                 delete_appointment(appt_id)
                 messages.success(request, 'Appointment deleted successfully.')
+            elif action == 'add_job':
+                form = JobForm(request.POST)
+                if form.is_valid():
+                    save_job_to_mongodb(form.cleaned_data)
+                    messages.success(request, 'Job added successfully.')
+                else:
+                    messages.error(request, 'Invalid job data provided.')
+            elif action == 'delete_job':
+                delete_job(job_id)
+                messages.success(request, 'Job deleted successfully.')
+            elif action == 'toggle_job_status':
+                is_active = request.POST.get('is_active') == 'true'
+                update_job(job_id, is_active=not is_active)
+                messages.success(request, 'Job status toggled.')
         except Exception as e:
             messages.error(request, f'Database Error: {e}')
             
@@ -101,8 +138,26 @@ def admin_dashboard(request):
     except Exception as e:
         appointments = []
         messages.error(request, f'Failed to retrieve appointments from MongoDB: {e}')
+
+    try:
+        jobs = get_all_jobs()
+    except Exception as e:
+        jobs = []
+        messages.error(request, f'Failed to retrieve jobs from MongoDB: {e}')
         
-    return render(request, 'admin/dashboard.html', {'appointments': appointments})
+    job_form = JobForm()
+    exp_dict = dict(JobForm.EXPERIENCE_LEVEL_CHOICES)
+    emp_dict = dict(JobForm.EMPLOYMENT_TYPE_CHOICES)
+    
+    for job in jobs:
+        job['exp_display'] = exp_dict.get(job.get('experience_level'), '')
+        job['emp_display'] = emp_dict.get(job.get('employment_type'), '')
+        
+    return render(request, 'admin/dashboard.html', {
+        'appointments': appointments,
+        'jobs': jobs,
+        'job_form': job_form,
+    })
 
 def admin_login(request):
     if request.user.is_authenticated and request.user.is_staff:
