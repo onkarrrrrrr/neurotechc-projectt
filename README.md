@@ -54,4 +54,4 @@ The platform features a fully integrated dark mode out of the box. Theme prefere
 **Contact Us:**
 - **Email:** shailesh.vasekar@neurotechc.com
 - **Phone:** +91 9881409591
-- **Offices:** Navipeth, Pune 411030 (Ratandham & Vikrant)
+- **Offices:** Navipeth, Pune 411030 (Ratandham business hub & Vikrant)
