@@ -4,6 +4,7 @@
 {% block title %}Resources - NeuroTechC{% endblock %}
 
 {% block content %}
+<style>[x-cloak] { display: none !important; }</style>
 <div class="bg-gray-50 dark:bg-[#0a0a0a] min-h-screen py-16">
     <div class="container mx-auto px-6 max-w-4xl">
         
@@ -14,12 +15,12 @@
         </div>
 
         <!-- Paper Article -->
-        <article class="premium-card dark:glass-card-dark rounded-2xl overflow-hidden shadow-sm" data-aos="fade-up" data-aos-delay="100">
+        <article class="premium-card dark:glass-card-dark rounded-2xl overflow-hidden shadow-sm" x-data="{ expanded: false }" data-aos="fade-up" data-aos-delay="100">
             <!-- Article Header -->
             <div class="bg-white dark:bg-[#111111] p-8 md:p-12 border-b border-gray-100 dark:border-white/10">
                 <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 rounded-full text-xs font-semibold tracking-wider uppercase mb-6">Research Paper</span>
                 <h2 class="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-                    Performing End-to-End Traffic Traceability Using Functional Coverage
+                    Exclude Smart in Functional Coverage
                 </h2>
                 <div class="flex flex-col md:flex-row md:items-center gap-4 text-gray-600 dark:text-gray-400 font-medium">
                     <div class="flex items-center gap-3">
@@ -34,96 +35,243 @@
                     <div class="hidden md:block w-px h-8 bg-gray-300 dark:bg-gray-700"></div>
                     <div class="text-sm flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        April 01, 2020
+                        November 27, 2025
                     </div>
                 </div>
             </div>
 
             <!-- Article Content -->
             <div class="p-8 md:p-12 prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
-                
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">Story</h3>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">Abstract</h3>
                 <p class="mb-6 leading-relaxed">
-                    For each of the functional features of a DUT to verify, all possible stimulus generation is developed through test cases and with the help of scoreboard, models, checkers, and assertions.
-                </p>
-                <p class="mb-6 leading-relaxed">
-                    Most of the time, defining functional coverage goals is done during the process of test plan preparation. For each of the functional features of a device under test (DUT) to verify, all possible stimulus generation is developed through test cases and with the help of scoreboard, models, checkers, and assertions. We confirm the correctness of DUT by checking responses for that stimulus. To make sure we have created enough combinations of input scenarios and DUT responses, coverage goals are defined for every feature in terms of covergroups, coverpoints, and assertions coverage which gives us confidence on how thoroughly particular feature has been verified.
-                </p>
-                <p class="mb-8 leading-relaxed">
-                    DUTs RTL blocks into variables defined out of a score of coverage class and using those variables in cross covergroups with different value hits will confirm that whether the input transactions have followed designated designed path to output or not. This is very important for a couple reasons. First, functional verification scoreboard does end to end transactions checks, but it does not confirm the DUT traffic path stimulus has followed. Secondly, individual covergroups or UVM RAL Regmodel functional coverage or assertion coverage will help at individual stimulus coverage but using in combination will make sure correctness of functional path. Let’s see in detail how we can use functional coverage to confirm traffic from input to output port traverse through desired data and control path.
+                    Verification coverage is a critical metric in hardware verification, ensuring that a design is thoroughly tested. This paper explores techniques to optimize verification code and functional coverage using the Cadence IMC tool. The focus is on increasing the coverage percentage while efficiently excluding unnecessary or irrelevant statements that do not contribute to meaningful verification. Both code coverage and functional exclusion options are discussed, with specific emphasis on excluding certain metrics such as expression and toggle coverage in code coverage and assertion and covergroup coverage in functional coverage when appropriate. Additionally, this paper provides insights into configuring attribute selectors within the IMC tool, which offers various options like assertion grade, covergroup grade, assertion passed, assertion failed, and more. These techniques aim to enhance verification efficiency while maintaining the integrity of coverage analysis.
                 </p>
 
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Performing Traffic Traceability</h3>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">1. Introduction</h3>
                 <p class="mb-6 leading-relaxed">
-                    Many times, covering just individual features and cross features is not enough. There is an essential requirement to check if the traffic of input interfaces have reached to output interfaces of other ends by travelling through all possible combinations of different data blocks, various control logic and different DUT configurations.
-                </p>
-                <p class="mb-6 leading-relaxed">
-                    Having individual covergroups for DUT input, output interfaces, on control block interface, regmodel auto-generated functional coverage may not guarantee that based on register configurations. The input transactions, packet, or command has travelled through desired data blocks and control path or has bypassed a typical control block.
-                </p>
-                <p class="mb-8 leading-relaxed">
-                    Using cross-coverage, on the variables defined out of coverage class and used to store transactions from various write methods one can make sure those variables different values are hit and trace the designed DUT path. The covergroup will be also defined out of the coverage class.
-                </p>
-
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Scenario</h3>
-                <p class="mb-6 leading-relaxed">
-                    Let’s consider a scenario, shown in Figure 1. In a DUT, which is highly configured and an input…a packet can be routed to output port through opted datapath and control path blocks and through selected packet Router port based on register configuration. Register CTRNL_RUT with field RT=2’b01 decides packet path from input port 1 through DataPath_blk1 using Cntrl_plan1, switch 1 (not shown in the diagram) and to Router port 1 and finally to output port 1. However, the register CTRNL_RUT.RT=2’b10 will change route for new incoming packet through DataPath_blk2 using Cntrl_plan2 and through Router port 2.
-                </p>
-                <p class="mb-10 leading-relaxed">
-                    In this case, the covergroups defined for datapath_block1, control path i.e. Cntrl_plane1 and register field RT will individually cover stimulus values. However, if variables are defined outside scope of coverage class, holding the values of signals from these interfaces and if used in cross coverages with interesting value then it can be confirmed that the packet has traversed correct path and achieve packet traceability.
-                </p>
-
-                <!-- Image / Figure 1 -->
-                <figure class="my-12">
-                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
-                        <img src="{% static 'images/paper_figure_1.jpg' %}" alt="Traffic trace getting information at each point" class="w-full h-auto rounded-lg">
-                    </div>
-                    <figcaption class="text-center text-sm text-gray-500 dark:text-gray-400 mt-4 font-medium italic">
-                        Figure 1 : Traffic trace getting information at each point
-                    </figcaption>
-                </figure>
-
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-12 mb-4">Coverage Implementation</h3>
-                <p class="mb-6 leading-relaxed">
-                    In a testbench, environment class typically has all interfaces agents, functional coverage and scoreboard instantiated in it. IO and control interfaces monitor’s analysis ports are connected to functional coverage class’s exports to get interface packets and transactions. Required resources like regmodel, different configuration objects will be set using uvm_condig_db construct to coverage class. Coverage implementation wise, define variables, packet storage elements outside of coverage class and use those to copy values of important interface signals, control signals and packet’s fields. These variables defined outside of coverage class will be used in cross coverages.
+                    Functional coverage is an essential in contemporary hardware design to guarantee that a design is extensively verified prior to deployment. Reliability, functional correctness, and adherence to industry standards all depend on achieving great coverage. But not all coverage indicators are equally important for meaningful verification, and adding extraneous coverage data might result in ineffective verification procedures, drawn-out simulations, and inaccurate conclusions. The Cadence IMC tool, a popular coverage analysis tool in the semiconductor industry, is utilised in this work to investigate verification coverage optimisation. The study focuses on methods for eliminating superfluous or redundant coverage measures to maximise verification efficiency. We examine both functional and code coverage, finding instances in which specific metrics such as assertion and covergroup coverage in functional coverage and expression and toggle coverage in code coverage may be omitted without compromising the thoroughness of the verification.
                 </p>
                 <p class="mb-6 leading-relaxed">
-                    As shown in above Figure 1, variables defined outside of coverage class will be used to save information like packet ids, valid for DataPath_blk1. And for control plane, save information like ready, status, destination id, routing channel numbers. Register values of fields such as CTRNL_RUT.RT values can be crossed with these variables to make sure that if field value of RT is 01 then Datapath_blk1 fields and control plan signals has interested values. Implementing the functional coverage with the approach mentioned will helpful especially in case of block and cluster level verification. Independent implementation of coverage class explores reusability options across projects with similar DUT interfaces.
+                    In addition, the report talks about how Cadence IMC's attribute selectors help verification engineers improve coverage analysis. Assertion grade, covergroup grade, assertion passed, assertion failed, and more parameters that aid in refining the coverage model are examples of these selectors. Verification teams can retain high-quality coverage analysis, minimise simulation overhead, and expedite the verification process by utilising these strategies.
+                </p>
+
+                <div x-show="expanded" x-cloak>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">2. Uploading the Merge File</h3>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_1.webp' %}" alt="File menu option" class="mx-auto rounded-lg" style="max-height: 200px; object-fit: contain;">
+                </div>
+                <p class="mb-6 leading-relaxed">
+                    After successfully passing regression, a merge file is created. In the above figure, the <strong>File</strong> option provides a <strong>Load File</strong> feature, <strong>Load Run Directory</strong> window will pop-up and load the merge file.
                 </p>
                 <p class="mb-6 leading-relaxed">
-                    The register configuration information can also receive through the interface but again need to decode address and fields, so it will be meaningful to use regmodel. Regmodel comes with rich sets of API and default sequences to exercise all registers and fields with their attributes. The Regmodel based auto generated functional coverage can be treated separately.
+                    After loading the file, a <strong>hierarchical matrix</strong> will be displayed. Clicking on a <strong>small symbol, such as a triangle ▶</strong>, will expand or collapse the hierarchy, as shown in Figure 2.1.
                 </p>
-                <p class="mb-8 leading-relaxed">
-                    There is a known limitation with embedded covergroup. We cannot use the multiple instances of the same covergroup as the datatype, hence defining the covergroups outside of the functional coverage class will help to define an array of covergroups, especially it will help if most of the interfaces are of the same type, a usual case of networking domain DUT. The single covergroup with multiple instances can be sampled with different indexes in each of the write_<> methods of coverage class.
-                </p>
-
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Code Example</h3>
-                <p class="mb-8 leading-relaxed text-gray-500 italic">
-                    In the above example, covergroup and variable are storing transactions & interface signals from write methods and are declared outside of class. This will allow these variables to be used across covergroups.
-                </p>
-
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Conclusion</h3>
-                <p class="mb-12 leading-relaxed">
-                    Based on important interface signals, which will validate the transactions or packets, the global variable outside of coverage class scope can be defined and used to copy these signals. Same can be done with every interface signals, control signals and those many global variables can be used in one covergroup which will define the cross coverage for such variables. This is how you can confirm traffic from input to output port traverse through desired data and control path.
-                </p>
-
-                <!-- Author Box -->
-                <div class="bg-gray-50 dark:bg-[#1a1a1a] rounded-xl p-8 border border-gray-100 dark:border-gray-800 flex flex-col md:flex-row gap-6 items-center md:items-start mt-12">
-                    <div class="w-24 h-24 flex-shrink-0 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-300 font-bold text-2xl">
-                        SV
-                    </div>
-                    <div class="text-center md:text-left">
-                        <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-2">About the Author</h4>
-                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
-                            <strong>Shailesh Vasekar</strong> is the Director of Neurotech Circuits Private Limited. He has worked in functional verification of ASICs and SOCs development in various domains like networking, consumer, communication. He has used advance verification methodologies like UVM, formal verification, functional coverage drive verification, assertions, SystemVerilog.
-                        </p>
-                    </div>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_2.webp' %}" alt="Hierarchical matrix view" class="mx-auto rounded-lg" style="max-height: 400px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 2.1: Hierarchical matrix</p>
                 </div>
 
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">3. Code Coverage and Exclusion</h3>
+                <p class="mb-6 leading-relaxed">
+                    In code coverage, this paper includes only <strong>expression</strong> and <strong>toggle</strong> coverage. If we double-click on the selected coverage, it will open the particular coverage with the expression.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_3.webp' %}" alt="Code coverage list" class="mx-auto rounded-lg" style="max-height: 250px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 3.1: Code coverage view</p>
+                </div>
+
+                <h4 class="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">3.1 Expression Coverage</h4>
+                <p class="mb-6 leading-relaxed">
+                    For convenience, options like Overall Average Grade sort expressions based on their percentage.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_4.webp' %}" alt="Expression coverage detail" class="mx-auto rounded-lg" style="max-height: 350px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 3.1.1: Expression coverage details</p>
+                </div>
+                <p class="mb-6 leading-relaxed">
+                    For example, in the image one expression Cover_mem is shown. <strong>Expression Coverage</strong> is a sort of code coverage that assesses whether all potential Boolean expressions in the design have been assessed during simulation. By making sure that every logical condition in an expression has been tested with every potential result, it assists in identifying missing test cases. The condition is represented in the form of <strong>T1 – T7</strong>, as shown in the image. When the cursor hovers over an <strong>T</strong> expression, it displays the corresponding condition name in the table.
+                </p>
+                <p class="mb-4 leading-relaxed font-semibold">Consider in index:</p>
+                <ul class="list-disc pl-6 mb-6 space-y-2">
+                    <li>
+                        <strong>Expression 1:</strong> T1 must be '0', and T5, T6, and T7 must be '1'. However, in this case, one of the expressions did not cover the value '1', or T1 is not '0', resulting in incomplete coverage and the score is '0'. Despite this, the output remains '1' because at least one or two expressions satisfied the required condition.
+                    </li>
+                    <li>
+                        <strong>Expression 4:</strong> T1 and T4 must be '1', while T2 must be '0'. Since these values are covered by this expression, the score is '1'. However, the '–' symbol represents 'Empty', meaning it does not consider any value from the expression.
+                    </li>
+                    <li>
+                        <strong>Expression 8:</strong> T1, T4, and T6 must be '0'. However, if an expression is not required to cover a value or is hardcoded as '1' or '0', meaning it never changes for other conditions, it can be excluded. To do this, right-click on the expression, select the Exclude option, and then right-click on that expression to provide a reason using the <strong>Comment</strong> option.
+                    </li>
+                </ul>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_5.webp' %}" alt="Exclusion option menu" class="mx-auto rounded-lg" style="max-height: 400px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 3.1.2: Exclusion popup</p>
+                </div>
+                <p class="mb-6 leading-relaxed">
+                    Let’s consider another type of example:
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_6.webp' %}" alt="Second expression example" class="mx-auto rounded-lg" style="max-height: 300px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 3.1.3: Condition list</p>
+                </div>
+                <p class="mb-6 leading-relaxed">
+                    In this example, a condition such as ca_de has an additional condition within <strong>dyn_Arc</strong>. When hovering the cursor over <strong>T2</strong>, it displays the name of the associated condition. By double-clicking the downward arrow ⬇ it reveals whether the condition's values are covered or not, as shown in Fig. 3.1.4.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_7.webp' %}" alt="Sub-condition details" class="mx-auto rounded-lg" style="max-height: 200px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 3.1.4: Detailed condition view</p>
+                </div>
+                <p class="mb-6 leading-relaxed">
+                    <strong>ca_de</strong> has a condition &gt;= 3'h4, which means in the code, values less than 4 are also being covered, along with the actual condition itself. In the image, this results in a score of '1'. However, in some cases values less than 4 are not recommended and should ideally be excluded. In this example, even though values less than 4 are not recommended, they are still being counted as covered; the exclusion is based on recommendation, not enforcement.
+                </p>
+
+                <h4 class="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">3.2 Toggle Coverage</h4>
+                <p class="mb-6 leading-relaxed">
+                    <strong>Toggle coverage</strong> is a kind of code coverage that determines if a signal's bits have toggled or altered during simulation. During simulation, it indicates if every bit in a wire or register has changed from 0 to 1 and from 1 to 0.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    In the verification metrics, there is a toggle option that displays the toggle coverage details, including any properties that should be excluded.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_8.webp' %}" alt="Toggle coverage list" class="mx-auto rounded-lg" style="max-height: 350px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 3.2.1: Toggle coverage overview</p>
+                </div>
+                <p class="mb-6 leading-relaxed">
+                    In toggle coverage, consider the 4th expression in Fig. 3.2.1:
+                </p>
+                <pre class="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg overflow-x-auto text-sm font-mono mb-6">
+always_ff @(posedge clk or posedge rst) begin
+    if (rst) begin
+        ex2wb_exnCode &lt;= 0;
+    end
+    else begin
+        ex2wb_exnCode &lt;= ex2wb_exnCode + 1;
+    end
+end</pre>
+                <p class="mb-6 leading-relaxed">
+                    In the example above, the signal <code>ex2wb_exnCode</code> toggles on the positive edge of clk or rst, which results in a toggle coverage score of '1'.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    If <code>ex2wb_exnCode</code> is assigned a constant value like <code>assign ex2wb_exnCode = 1'b1;</code>, it will never toggle during simulation. In such cases, the signal can be excluded from toggle coverage. However, exclusions should be done carefully and only when justified. This is referred to as <strong>Exclusion Smart</strong>. Exclusion can also be applied without using Exclude Smart, in which case it only affects a specific instance rather than the entire hierarchy.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_9.webp' %}" alt="Exclude Smart menu option" class="mx-auto rounded-lg" style="max-height: 300px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 3.2.2: Exclude Smart menu</p>
+                </div>
+                <p class="mb-6 leading-relaxed">
+                    <strong>Smart Exclusion</strong> removes the expression from the entire hierarchy, ensuring it is not considered in any coverage analysis. After applying the exclusion, it's recommended to add a <strong>comment</strong> explaining the reason and save the exclusion using the Save option in the menu.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    In the expression view, you can see options for exclusion, such as excluding coverage on the rising or falling edge of the clock—useful when certain transitions are not relevant for coverage, as shown in Figure 3.2.3.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_10.webp' %}" alt="Edge exclusions" class="mx-auto rounded-lg" style="max-height: 120px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 3.2.3: Rising/Falling edge options</p>
+                </div>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">4. Functional Coverage and Exclusion</h3>
+                <p class="mb-6 leading-relaxed">
+                    One kind of coverage statistic in System Verilog that quantifies the extent to which the planned behaviour of the design has been evaluated is called functional coverage. In functional coverage, we include Assertions and Covergroups.
+                </p>
+
+                <h4 class="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">4.1. Assertion Coverage</h4>
+                <p class="mb-6 leading-relaxed">
+                    Assertions are written in System Verilog to formally specify and check the expected behaviour of a design. We can determine whether and how many times assertions have been triggered during simulation by looking at assertion coverage. The assertion condition is true at least once; if the assertion fails, it means bad behaviour has been detected.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_11.webp' %}" alt="Assertion coverage list" class="mx-auto rounded-lg" style="max-height: 250px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 4.1.1: Assertion view</p>
+                </div>
+                <p class="mb-6 leading-relaxed">
+                    In the example above, the <strong>A_BRANCH_PRED</strong> assertion checks that the <strong>invalid_op</strong> signal is equal to '0' on the positive edge of resetn. If this condition is not met, a fatal error is triggered. The sensitivity list @(...) can be modified based on design requirements. If this assertion is not required for a particular scenario, or if the condition is not realistically achievable, it can be excluded from coverage, as shown in the image. After applying the exclusion, it's recommended to add a comment explaining the reason for exclusion for better traceability.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_12.webp' %}" alt="Comment window for exclusion" class="mx-auto rounded-lg" style="max-height: 380px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 4.1.2: Exclusion comments</p>
+                </div>
+
+                <h4 class="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-4">4.2. Covergroup Coverage</h4>
+                <p class="mb-6 leading-relaxed">
+                    In the given example, <strong>A_BR</strong> is the file which contains the covergroup property. During simulation, a covergroup can be used to monitor and assess if significant values or conditions have occurred. You may ensure that your testbench is testing everything it should by using functional coverage. <strong>cpwbExXcpofExcXxpExc</strong> is a covergroup that crosses with multiple conditions.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_13.webp' %}" alt="Covergroup view details" class="mx-auto rounded-lg" style="max-height: 320px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 4.2.1: Covergroup table</p>
+                </div>
+                <p class="mb-6 leading-relaxed">
+                    If a covergroup is not necessary for coverage, right-click on the selected covergroup, choose 'Exclude', add a comment explaining the reason, and save the change in the <code>.refine</code> file.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_14.webp' %}" alt="Exclusion menu on covergroup" class="mx-auto rounded-lg" style="max-height: 520px; object-fit: contain;">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-2 italic">Fig. 4.2.2: Covergroup exclusions</p>
+                </div>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Saving the Exclusions in .refine File</h3>
+                <p class="mb-6 leading-relaxed">
+                    To save the process, we need to store it in a <strong>.refine</strong> file. The Save option is available in the menu option. Click on the save icon ▼ to store the changes. If you click on save, the file will be saved in the default location. We can choose to save after all exclusions are done or save after each exclusion, as it will overwrite the existing <strong>.refine</strong> file, as shown in the figure below.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_15.webp' %}" alt="Save refinement file icon" class="mx-auto rounded-lg" style="max-height: 120px; object-fit: contain;">
+                </div>
+                <p class="mb-6 leading-relaxed">
+                    If the <strong>IMC tool</strong> is closed and exclusions are saved in the <strong>.refine</strong> file, we can resume from where we left off. To do this, use the Read option in the top menu bar to load the <strong>.refine</strong> file, allowing us to continue with the same exclusions by clicking on the <strong>Read Refinement</strong> option as shown in the figure below.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_16.webp' %}" alt="Read refinement file menu option" class="mx-auto rounded-lg" style="max-height: 160px; object-fit: contain;">
+                </div>
+                <p class="mb-6 leading-relaxed">
+                    To unload the read <strong>.refine</strong> file and start with a fresh IMC window without any exclusions or previously loaded data, use the <strong>Unload</strong> option in the menu. The first option unloads all refinement files, and the second option unloads a single specified file. This will remove the currently loaded file and reset the session as shown below.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_17.webp' %}" alt="Unload refinement files" class="mx-auto rounded-lg" style="max-height: 130px; object-fit: contain;">
+                </div>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">How to Add Multiple Attributes</h3>
+                <p class="mb-6 leading-relaxed">
+                    The Attribute Selector provides various options for adding grade criteria. It displays pass and fail coverage grades in a convenient format, making it easier to view metrics such as code and functional coverage.
+                </p>
+                <div class="my-8 bg-white dark:bg-[#111] p-4 rounded-xl shadow-sm border border-gray-200 dark:border-white/10">
+                    <img src="{% static 'images/exclude_smart_18.webp' %}" alt="Attribute selector window" class="mx-auto rounded-lg" style="max-height: 480px; object-fit: contain;">
+                </div>
+                <p class="mb-8 leading-relaxed">
+                    In the image, the settings option is located at the top-right corner. It opens the Attribute Selector, allowing you to customize the display by adding options such as assertion grade (pass/fail) and covergroup grade (pass/fail). After selecting the desired attributes, add them to the '<strong>Selected Attributes</strong>' list, then click '<strong>Apply</strong>' and '<strong>OK</strong>'. The selected attributes will then be displayed on the screen.
+                </p>
+
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">Summary and Conclusion</h3>
+                <p class="mb-6 leading-relaxed">
+                    This paper has presented a systematic and detailed methodology for optimizing verification coverage metrics using the Cadence Integrated Metrics Center (IMC) tool, focusing on the strategic exclusion of irrelevant coverage points to enhance efficiency and integrity.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    The core of the methodology centres on refining both code and functional coverage to better reflect meaningful design verification:
+                </p>
+                <ul class="list-disc pl-6 mb-6 space-y-2">
+                    <li>
+                        For code coverage, specific procedures were outlined for handling expression and toggle coverage, including the critical distinction between standard Exclude (instance-specific) and Exclude Smart (hierarchy-wide) to permanently remove signals, such as hardcoded wires, from the entire coverage analysis.
+                    </li>
+                    <li>
+                        In functional coverage, the method allows for the exclusion of unnecessary assertion and covergroup metrics, thereby ensuring that the coverage model focuses solely on required functional goals.
+                    </li>
+                </ul>
+                <p class="mb-6 leading-relaxed">
+                    A crucial component of this optimization is the persistent management of exclusions via the <code>.refine</code> file, which enables saving, loading, and unloading of refinement decisions to maintain consistency and allow for seamless resumption of work. Furthermore, the paper detailed the use of the Attribute Selector to customize the metric view, aiding engineers in quickly visualizing key data points like assertion pass/fail grades.
+                </p>
+                <p class="mb-6 leading-relaxed">
+                    By applying these targeted exclusion and metric management strategies, verification teams can significantly reduce noise in coverage reports, minimize simulation overhead, and ultimately achieve a faster and more representative verification closure, maintaining the high-quality standards essential in contemporary hardware design.
+                </p>
+                </div>
+
+                <!-- Read More Button -->
+                <div class="mt-8 flex justify-center border-t border-gray-100 dark:border-white/10 pt-8">
+                    <button @click="expanded = !expanded" class="px-6 py-2.5 bg-black hover:bg-gray-800 text-white dark:bg-white dark:hover:bg-gray-200 dark:text-black font-semibold rounded transition-colors text-sm flex items-center gap-2">
+                        <span x-text="expanded ? 'Read Less' : 'Read More'">Read More</span>
+                        <svg class="w-4 h-4 transform transition-transform duration-200" :class="{ 'rotate-180': expanded }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                </div>
             </div>
         </article>
 
         <!-- Second Paper Article -->
-        <article class="premium-card dark:glass-card-dark rounded-2xl overflow-hidden shadow-sm mt-12" data-aos="fade-up" data-aos-delay="200">
+        <article class="premium-card dark:glass-card-dark rounded-2xl overflow-hidden shadow-sm mt-12" x-data="{ expanded: false }" data-aos="fade-up" data-aos-delay="200">
             <!-- Article Header -->
             <div class="bg-white dark:bg-[#111111] p-8 md:p-12 border-b border-gray-100 dark:border-white/10">
                 <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 rounded-full text-xs font-semibold tracking-wider uppercase mb-6">Research Paper</span>
@@ -161,6 +309,7 @@
                     The open source <a href="https://github.com/chipsalliance/riscv-dv/tree/master" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">https://github.com/chipsalliance/riscv-dv/tree/master</a> defines the SV UVM-based class structure very helpful in the verification of RISC-V IP. The generated random test can be added directly to run with the design IP. The various sections of the ASM program, such as initialization routine, instruction section, data section, stack section, page table, interrupt and exception handling, etc., are generated with different functions in the riscv_asm_program_gen class itself.
                 </p>
 
+                <div x-show="expanded" x-cloak>
                 <h3 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">First Thing First</h3>
                 <p class="mb-6 leading-relaxed">
                     First, the class riscv_instr_gen_config is randomized from the test riscv_instr_base_test.sv. This randomization decides the RISC-V extension we are running with, the privilege mode supported, the instruction count in the main and subprogram, whether the program must generate break instructions using variable no_ebreak, similarly no_dret, no_fence, no_wfi, and such configurations.
@@ -248,6 +397,15 @@
                 <p class="mb-12 leading-relaxed">
                     The `riscv_asm_program_gen` class serves as a comprehensive utility to automate the generation of RISC-V assembly programs. Its modular function calls and rich configuration support make it a crucial component in the `riscv-dv` verification ecosystem.
                 </p>
+                </div>
+
+                <!-- Read More Button -->
+                <div class="mt-8 flex justify-center border-t border-gray-100 dark:border-white/10 pt-8">
+                    <button @click="expanded = !expanded" class="px-6 py-2.5 bg-black hover:bg-gray-800 text-white dark:bg-white dark:hover:bg-gray-200 dark:text-black font-semibold rounded transition-colors text-sm flex items-center gap-2">
+                        <span x-text="expanded ? 'Read Less' : 'Read More'">Read More</span>
+                        <svg class="w-4 h-4 transform transition-transform duration-200" :class="{ 'rotate-180': expanded }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                </div>
             </div>
         </article>
 

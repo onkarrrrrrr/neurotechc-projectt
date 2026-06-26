@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section class="py-12 bg-white min-h-[70vh]">
+<section class="py-12 bg-white dark:bg-[#0a0a0a] transition-colors duration-300 min-h-[70vh]">
     <div class="container mx-auto px-6 max-w-7xl">
         
         <!-- Header -->
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between border-b border-[#eaeaea] pb-8 mb-12">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between border-b border-[#eaeaea] dark:border-white/10 pb-8 mb-12">
             <div data-aos="fade-up">
-                <h1 class="text-4xl font-heading font-bold text-black mb-2 tracking-tight">Admin <span class="text-[#888]">Dashboard</span></h1>
-                <p class="text-muted font-sans text-sm font-light">Manage and review incoming customer inquiries and appointment requests from MongoDB.</p>
+                <h1 class="text-4xl font-heading font-bold text-black dark:text-white mb-2 tracking-tight">Admin <span class="text-[#888]">Dashboard</span></h1>
+                <p class="text-muted dark:text-gray-400 font-sans text-sm font-light">Manage and review incoming customer inquiries and appointment requests from MongoDB.</p>
             </div>
             <div class="mt-4 md:mt-0 flex gap-4">
-                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#eaeaea] bg-[#fafafa] text-xs font-mono text-[#555]">
+                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#eaeaea] dark:border-white/10 bg-[#fafafa] dark:bg-[#111111] text-xs font-mono text-[#555] dark:text-gray-400">
                     <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
                     Database Connected (MongoDB)
                 </span>
-                <a href="{% url 'admin_logout' %}" class="text-xs font-mono font-medium text-red-600 hover:underline flex items-center">Logout &rarr;</a>
+                <a href="{% url 'admin_logout' %}" class="text-xs font-mono font-medium text-red-600 dark:text-red-400 hover:underline flex items-center">Logout &rarr;</a>
             </div>
         </div>
 
@@ -41,7 +41,7 @@
         {% if appointments %}
              <div class="space-y-8" data-aos="fade-up" data-aos-delay="100">
                 {% for appt in appointments %}
-                    <div class="premium-card p-8 rounded-xl bg-white border border-[#eaeaea] relative overflow-hidden transition-all hover:border-gray-300">
+                    <div class="premium-card dark:glass-card-dark p-8 rounded-xl bg-white dark:bg-[#111111] border border-[#eaeaea] dark:border-white/10 relative overflow-hidden transition-all hover:border-gray-300 dark:hover:border-white/30">
                         
                         <!-- Status Bar / Indicator -->
                         <div class="absolute left-0 top-0 bottom-0 w-1.5 {% if appt.status == 'CONFIRMED' %}bg-green-500{% else %}bg-amber-400{% endif %}"></div>
@@ -52,33 +52,33 @@
                             <div class="lg:col-span-4 space-y-4">
                                 <div>
                                     <div class="flex items-center gap-3 mb-1">
-                                        <h3 class="text-xl font-heading font-bold text-black">{{ appt.full_name }}</h3>
+                                        <h3 class="text-xl font-heading font-bold text-black dark:text-white">{{ appt.full_name }}</h3>
                                         
                                         <!-- Status Badge -->
                                         {% if appt.status == 'CONFIRMED' %}
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-200">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-50 dark:bg-green-950/20 text-green-800 dark:text-green-300 border border-green-200 dark:border-green-800/30">
                                                 Confirmed
                                             </span>
                                         {% else %}
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 dark:bg-amber-950/20 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800/30">
                                                 New
                                             </span>
                                         {% endif %}
                                     </div>
-                                    <p class="text-sm text-muted font-mono">{{ appt.company|default:"Independent Architect" }}</p>
+                                    <p class="text-sm text-muted dark:text-gray-400 font-mono">{{ appt.company|default:"Independent Architect" }}</p>
                                 </div>
                                 
-                                <div class="space-y-2 font-sans text-sm text-muted">
+                                <div class="space-y-2 font-sans text-sm text-muted dark:text-gray-400">
                                     <div class="flex items-center gap-2">
-                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                                        <a href="mailto:{{ appt.email }}" class="hover:underline hover:text-black">{{ appt.email }}</a>
+                                        <svg class="w-4 h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                        <a href="mailto:{{ appt.email }}" class="hover:underline hover:text-black dark:hover:text-white">{{ appt.email }}</a>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                        <svg class="w-4 h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                                         <span>{{ appt.phone }}</span>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        <svg class="w-4 h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                         <span>{{ appt.created_at|date:"M d, Y - H:i" }} (UTC)</span>
                                     </div>
                                 </div>
@@ -87,8 +87,8 @@
                             <!-- Interest & Message -->
                             <div class="lg:col-span-5 space-y-3">
                                 <div>
-                                    <span class="font-mono text-xs text-[#888] font-semibold uppercase tracking-wider block">Service Interest</span>
-                                    <span class="text-sm font-semibold text-black bg-gray-100 border border-gray-200 px-3 py-1 rounded inline-block mt-1">
+                                    <span class="font-mono text-xs text-[#888] dark:text-gray-500 font-semibold uppercase tracking-wider block">Service Interest</span>
+                                    <span class="text-sm font-semibold text-black dark:text-white bg-gray-100 dark:bg-neutral-800 border border-gray-200 dark:border-white/10 px-3 py-1 rounded inline-block mt-1">
                                         {% if appt.service == 'DV' %}Design Verification
                                         {% elif appt.service == 'RTL' %}RTL Design
                                         {% elif appt.service == 'FPGA' %}FPGA Prototyping
@@ -100,24 +100,24 @@
                                     </span>
                                 </div>
                                 <div>
-                                    <span class="font-mono text-xs text-[#888] font-semibold uppercase tracking-wider block">Project Message</span>
-                                    <p class="text-sm text-muted bg-gray-50 border border-gray-150 p-4 rounded-lg mt-1 italic whitespace-pre-line leading-relaxed">
+                                    <span class="font-mono text-xs text-[#888] dark:text-gray-500 font-semibold uppercase tracking-wider block">Project Message</span>
+                                    <p class="text-sm text-muted dark:text-gray-400 bg-gray-50 dark:bg-neutral-900 border border-gray-150 dark:border-white/10 p-4 rounded-lg mt-1 italic whitespace-pre-line leading-relaxed">
                                         {{ appt.message|default:"No message details provided." }}
                                     </p>
                                 </div>
                             </div>
                             
                             <!-- Actions & Notes -->
-                            <div class="lg:col-span-3 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-[#eaeaea] pt-6 lg:pt-0 lg:pl-6 space-y-4">
+                            <div class="lg:col-span-3 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-[#eaeaea] dark:border-white/10 pt-6 lg:pt-0 lg:pl-6 space-y-4">
                                 
                                 <!-- Notes Form -->
                                 <form method="POST" class="space-y-2">
                                     {% csrf_token %}
                                     <input type="hidden" name="appt_id" value="{{ appt.id_str }}">
                                     <input type="hidden" name="action" value="save_note">
-                                    <label class="font-mono text-xs text-[#888] font-semibold uppercase tracking-wider block">Internal Notes</label>
-                                    <textarea name="note" rows="3" class="w-full bg-white border border-[#d1d5db] rounded-lg px-3 py-2 text-xs text-black focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all shadow-sm" placeholder="Type internal notes here...">{{ appt.note }}</textarea>
-                                    <button type="submit" class="w-full py-2 bg-gray-100 hover:bg-gray-200 text-black border border-gray-200 font-semibold rounded text-xs transition-colors">
+                                    <label class="font-mono text-xs text-[#888] dark:text-gray-500 font-semibold uppercase tracking-wider block">Internal Notes</label>
+                                    <textarea name="note" rows="3" class="w-full bg-white dark:bg-neutral-900 border border-[#d1d5db] dark:border-white/10 rounded-lg px-3 py-2 text-xs text-black dark:text-white focus:outline-none focus:border-black dark:focus:border-white focus:ring-1 focus:ring-black dark:focus:ring-white transition-all shadow-sm" placeholder="Type internal notes here...">{{ appt.note }}</textarea>
+                                    <button type="submit" class="w-full py-2 bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 text-black dark:text-white border border-gray-200 dark:border-white/10 font-semibold rounded text-xs transition-colors">
                                         Save Note
                                     </button>
                                 </form>
@@ -129,7 +129,7 @@
                                             {% csrf_token %}
                                             <input type="hidden" name="appt_id" value="{{ appt.id_str }}">
                                             <input type="hidden" name="action" value="confirm">
-                                            <button type="submit" class="w-full py-2 bg-black hover:bg-gray-800 text-white font-semibold rounded text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+                                            <button type="submit" class="w-full py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-white dark:text-black font-semibold rounded text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                                                 Confirm
                                             </button>
@@ -140,7 +140,7 @@
                                         {% csrf_token %}
                                         <input type="hidden" name="appt_id" value="{{ appt.id_str }}">
                                         <input type="hidden" name="action" value="delete">
-                                        <button type="submit" class="w-full py-2 border border-red-200 hover:bg-red-50 text-red-600 font-semibold rounded text-xs transition-colors px-3 flex items-center justify-center gap-1.5">
+                                        <button type="submit" class="w-full py-2 border border-red-200 dark:border-red-900/30 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-600 dark:text-red-400 font-semibold rounded text-xs transition-colors px-3 flex items-center justify-center gap-1.5">
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                             Delete
                                         </button>
@@ -150,86 +150,86 @@
                         </div>
                     </div>
                 {% endfor %}
-            </div>
+             </div>
         {% else %}
             <!-- Empty State -->
-            <div class="premium-card p-16 text-center rounded-xl bg-[#fafafa]">
-                <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 mx-auto mb-6 border border-[#eaeaea]">
+            <div class="premium-card dark:glass-card-dark p-16 text-center rounded-xl bg-[#fafafa] dark:bg-[#111111]">
+                <div class="w-16 h-16 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center text-gray-400 dark:text-gray-500 mx-auto mb-6 border border-[#eaeaea] dark:border-white/10">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
                 </div>
-                <h3 class="text-xl font-heading font-bold text-black mb-2">No Appointments Yet</h3>
-                <p class="text-muted max-w-sm mx-auto font-light text-sm leading-relaxed">Incoming customer inquiries submitted through the contact page will appear here automatically.</p>
+                <h3 class="text-xl font-heading font-bold text-black dark:text-white mb-2">No Appointments Yet</h3>
+                <p class="text-muted dark:text-gray-400 max-w-sm mx-auto font-light text-sm leading-relaxed">Incoming customer inquiries submitted through the contact page will appear here automatically.</p>
             </div>
         {% endif %}
 
         <!-- Jobs Section Header -->
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between border-b border-[#eaeaea] pb-4 mb-8 mt-16">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between border-b border-[#eaeaea] dark:border-white/10 pb-4 mb-8 mt-16">
             <div data-aos="fade-up">
-                <h2 class="text-3xl font-heading font-bold text-black tracking-tight">Job <span class="text-[#888]">Listings</span></h2>
-                <p class="text-muted font-sans text-sm font-light">Manage careers postings directly from MongoDB.</p>
+                <h2 class="text-3xl font-heading font-bold text-black dark:text-white tracking-tight">Job <span class="text-[#888]">Listings</span></h2>
+                <p class="text-muted dark:text-gray-400 font-sans text-sm font-light">Manage careers postings directly from MongoDB.</p>
             </div>
             
             <!-- Button to open "Add Job" modal -->
             <div class="mt-4 md:mt-0" x-data="{ open: false }">
-                <button @click="open = true" class="px-4 py-2 bg-black text-white rounded text-sm font-semibold shadow hover:bg-gray-800">
+                <button @click="open = true" class="px-4 py-2 bg-black dark:bg-white text-white dark:text-black rounded text-sm font-semibold shadow hover:bg-gray-800 dark:hover:bg-gray-200">
                     + Add New Job
                 </button>
                 
                 <!-- Simple Alpine Modal for Adding Jobs -->
                 <div x-show="open" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" style="display: none;">
-                    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto" @click.away="open = false">
-                        <div class="flex justify-between items-center mb-6 border-b pb-4">
-                            <h3 class="text-xl font-bold">Add New Job</h3>
-                            <button @click="open = false" class="text-gray-500 hover:text-black">&times;</button>
+                    <div class="bg-white dark:bg-[#111111] border dark:border-white/10 rounded-xl shadow-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto" @click.away="open = false">
+                        <div class="flex justify-between items-center mb-6 border-b dark:border-white/10 pb-4">
+                            <h3 class="text-xl font-bold text-black dark:text-white">Add New Job</h3>
+                            <button @click="open = false" class="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white">&times;</button>
                         </div>
                         <form method="POST" class="space-y-4">
                             {% csrf_token %}
                             <input type="hidden" name="action" value="add_job">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Job Title</label>
-                                    <input type="text" name="job_title" required class="w-full border rounded p-2 text-sm focus:ring-1 focus:border-black focus:ring-black">
+                                    <label class="block text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Job Title</label>
+                                    <input type="text" name="job_title" required class="w-full bg-white dark:bg-neutral-900 border dark:border-white/10 rounded p-2 text-sm text-black dark:text-white focus:ring-1 focus:border-black dark:focus:border-white focus:ring-black dark:focus:ring-white">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Location</label>
-                                    <input type="text" name="location" class="w-full border rounded p-2 text-sm focus:ring-1 focus:border-black focus:ring-black">
+                                    <label class="block text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Location</label>
+                                    <input type="text" name="location" class="w-full bg-white dark:bg-neutral-900 border dark:border-white/10 rounded p-2 text-sm text-black dark:text-white focus:ring-1 focus:border-black dark:focus:border-white focus:ring-black dark:focus:ring-white">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Experience Level</label>
+                                    <label class="block text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Experience Level</label>
                                     {{ job_form.experience_level }}
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Employment Type</label>
+                                    <label class="block text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Employment Type</label>
                                     {{ job_form.employment_type }}
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Min Salary</label>
-                                    <input type="number" name="salary_min" class="w-full border rounded p-2 text-sm focus:ring-1 focus:border-black focus:ring-black">
+                                    <label class="block text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Min Salary</label>
+                                    <input type="number" name="salary_min" class="w-full bg-white dark:bg-neutral-900 border dark:border-white/10 rounded p-2 text-sm text-black dark:text-white focus:ring-1 focus:border-black dark:focus:border-white focus:ring-black dark:focus:ring-white">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Max Salary</label>
-                                    <input type="number" name="salary_max" class="w-full border rounded p-2 text-sm focus:ring-1 focus:border-black focus:ring-black">
+                                    <label class="block text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Max Salary</label>
+                                    <input type="number" name="salary_max" class="w-full bg-white dark:bg-neutral-900 border dark:border-white/10 rounded p-2 text-sm text-black dark:text-white focus:ring-1 focus:border-black dark:focus:border-white focus:ring-black dark:focus:ring-white">
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Description</label>
-                                <textarea name="description" rows="3" class="w-full border rounded p-2 text-sm focus:ring-1 focus:border-black focus:ring-black"></textarea>
+                                <label class="block text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Description</label>
+                                <textarea name="description" rows="3" class="w-full bg-white dark:bg-neutral-900 border dark:border-white/10 rounded p-2 text-sm text-black dark:text-white focus:ring-1 focus:border-black dark:focus:border-white focus:ring-black dark:focus:ring-white"></textarea>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Skills Required (comma separated)</label>
-                                <textarea name="skills_required" rows="2" class="w-full border rounded p-2 text-sm focus:ring-1 focus:border-black focus:ring-black"></textarea>
+                                <label class="block text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Skills Required (comma separated)</label>
+                                <textarea name="skills_required" rows="2" class="w-full bg-white dark:bg-neutral-900 border dark:border-white/10 rounded p-2 text-sm text-black dark:text-white focus:ring-1 focus:border-black dark:focus:border-white focus:ring-black dark:focus:ring-white"></textarea>
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold uppercase text-gray-500 mb-1">Apply Link</label>
-                                <input type="url" name="apply_link" value="https://www.linkedin.com/company/neurotech-circuits-private-limited/jobs/" class="w-full border rounded p-2 text-sm focus:ring-1 focus:border-black focus:ring-black">
+                                <label class="block text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 mb-1">Apply Link</label>
+                                <input type="url" name="apply_link" value="https://www.linkedin.com/company/neurotech-circuits-private-limited/jobs/" class="w-full bg-white dark:bg-neutral-900 border dark:border-white/10 rounded p-2 text-sm text-black dark:text-white focus:ring-1 focus:border-black dark:focus:border-white focus:ring-black dark:focus:ring-white">
                             </div>
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" name="is_active" value="true" checked class="rounded border-gray-300 text-black focus:ring-black">
-                                <label class="text-sm font-semibold">Is Active</label>
+                                <input type="checkbox" name="is_active" value="true" checked class="rounded border-gray-300 dark:border-white/10 bg-white dark:bg-neutral-900 text-black dark:text-white focus:ring-black dark:focus:ring-white">
+                                <label class="text-sm font-semibold text-black dark:text-white">Is Active</label>
                             </div>
                             
                             <div class="pt-4 flex justify-end">
-                                <button type="submit" class="px-6 py-2 bg-black text-white font-semibold rounded hover:bg-gray-800">Save Job</button>
+                                <button type="submit" class="px-6 py-2 bg-black dark:bg-white text-white dark:text-black font-semibold rounded hover:bg-gray-800 dark:hover:bg-gray-200">Save Job</button>
                             </div>
                         </form>
                     </div>
@@ -241,17 +241,17 @@
         {% if jobs %}
             <div class="space-y-4">
                 {% for job in jobs %}
-                    <div class="premium-card p-6 rounded-xl bg-white border border-[#eaeaea] flex flex-col md:flex-row justify-between items-center gap-4 hover:border-gray-300 transition-all">
+                    <div class="premium-card dark:glass-card-dark p-6 rounded-xl bg-white dark:bg-[#111111] border border-[#eaeaea] dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 hover:border-gray-300 dark:hover:border-white/30 transition-all">
                         <div class="flex-1">
-                            <h3 class="text-lg font-bold text-black flex items-center gap-2">
+                            <h3 class="text-lg font-bold text-black dark:text-white flex items-center gap-2">
                                 {{ job.job_title }}
                                 {% if job.is_active %}
-                                    <span class="px-2 py-0.5 text-[10px] bg-green-100 text-green-800 rounded uppercase font-bold tracking-wider">Active</span>
+                                    <span class="px-2 py-0.5 text-[10px] bg-green-100 dark:bg-green-950/20 text-green-800 dark:text-green-300 border border-green-200 dark:border-green-800/30 rounded uppercase font-bold tracking-wider">Active</span>
                                 {% else %}
-                                    <span class="px-2 py-0.5 text-[10px] bg-gray-100 text-gray-600 rounded uppercase font-bold tracking-wider">Inactive</span>
+                                    <span class="px-2 py-0.5 text-[10px] bg-gray-100 dark:bg-neutral-800 text-gray-600 dark:text-gray-400 rounded uppercase font-bold tracking-wider">Inactive</span>
                                 {% endif %}
                             </h3>
-                            <p class="text-sm text-gray-500 mt-1">{{ job.exp_display }} &bull; {{ job.emp_display }} &bull; {{ job.location }}</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ job.exp_display }} &bull; {{ job.emp_display }} &bull; {{ job.location }}</p>
                         </div>
                         
                         <div class="flex items-center gap-3">
@@ -261,7 +261,7 @@
                                 <input type="hidden" name="action" value="toggle_job_status">
                                 <input type="hidden" name="job_id" value="{{ job.id_str }}">
                                 <input type="hidden" name="is_active" value="{{ job.is_active|yesno:'true,false' }}">
-                                <button type="submit" class="px-3 py-1.5 border border-gray-200 rounded text-xs font-semibold hover:bg-gray-50 text-gray-700">
+                                <button type="submit" class="px-3 py-1.5 border border-gray-200 dark:border-white/10 rounded text-xs font-semibold hover:bg-gray-50 dark:hover:bg-neutral-800 text-gray-700 dark:text-gray-300">
                                     {% if job.is_active %}Deactivate{% else %}Activate{% endif %}
                                 </button>
                             </form>
@@ -271,7 +271,7 @@
                                 {% csrf_token %}
                                 <input type="hidden" name="action" value="delete_job">
                                 <input type="hidden" name="job_id" value="{{ job.id_str }}">
-                                <button type="submit" class="px-3 py-1.5 border border-red-200 text-red-600 rounded text-xs font-semibold hover:bg-red-50 flex items-center gap-1">
+                                <button type="submit" class="px-3 py-1.5 border border-red-200 dark:border-red-900/30 text-red-600 dark:text-red-400 rounded text-xs font-semibold hover:bg-red-50 dark:hover:bg-red-950/20 flex items-center gap-1">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                     Delete
                                 </button>
@@ -281,8 +281,8 @@
                 {% endfor %}
             </div>
         {% else %}
-            <div class="premium-card p-12 text-center rounded-xl bg-[#fafafa] border border-[#eaeaea]">
-                <p class="text-muted text-sm">No jobs have been added to MongoDB yet.</p>
+            <div class="premium-card dark:glass-card-dark p-12 text-center rounded-xl bg-[#fafafa] dark:bg-[#111111] border border-[#eaeaea] dark:border-white/10">
+                <p class="text-muted dark:text-gray-400 text-sm">No jobs have been added to MongoDB yet.</p>
             </div>
         {% endif %}
     </div>

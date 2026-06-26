@@ -98,6 +98,36 @@
         opacity: 1;
         color: #000;
     }
+
+    /* Dark Mode styles for Orbital Animation */
+    .dark .orbit-ring {
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+    .dark .node-btn {
+        background: #111111;
+        border-color: #333333;
+        color: #aaaaaa;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .dark .node-btn:hover {
+        border-color: #ffffff;
+        color: #ffffff;
+    }
+    .dark .node-btn.active {
+        background: #ffffff;
+        color: #000000;
+        border-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(255,255,255,0.15);
+    }
+    .dark .node-label {
+        background: rgba(17, 17, 17, 0.95);
+        border-color: #333333;
+        color: #aaaaaa;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .dark .node-content:hover .node-label,
+    .dark .node-btn.active + .node-label {
+        color: #ffffff;
     }
 
     .connection-lines {
@@ -120,7 +150,7 @@
     }
 </style>
 
-<section class="py-24 bg-white" x-data="{ 
+<section class="py-24 bg-white dark:bg-[#0a0a0a] transition-colors duration-300" x-data="{ 
     activeStep: 1, 
     showModal: false,
     selectedStep: null,
@@ -188,8 +218,8 @@
 }">
     <div class="container mx-auto px-6 max-w-7xl">
         <div class="text-center mb-20" data-aos="fade-up">
-            <h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 tracking-tight text-black">Verification <span class="text-[#888]">Methodology</span></h1>
-            <p class="text-muted max-w-2xl mx-auto font-light text-lg">We work on all stages of functional verification. Below is our circular flow from strategy to closure.</p>
+            <h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 tracking-tight text-black dark:text-white">Verification <span class="text-[#888]">Methodology</span></h1>
+            <p class="text-muted dark:text-gray-400 max-w-2xl mx-auto font-light text-lg">We work on all stages of functional verification. Below is our circular flow from strategy to closure.</p>
         </div>
 
         <!-- Desktop/Tablet Orbital UI (Hidden on small screens) -->
@@ -204,19 +234,19 @@
                               :x2="50 + 40 * Math.cos((index * (360/7) - 90) * Math.PI / 180)" 
                               :y2="50 + 40 * Math.sin((index * (360/7) - 90) * Math.PI / 180)" 
                               stroke-width="0.4" stroke-dasharray="2,2" 
-                              :stroke="activeStep === step.id ? 'rgba(0, 0, 0, 0.4)' : 'rgba(0, 0, 0, 0.1)'" />
+                              :stroke="darkMode ? (activeStep === step.id ? 'rgba(255, 255, 255, 0.4)' : 'rgba(255, 255, 255, 0.1)') : (activeStep === step.id ? 'rgba(0, 0, 0, 0.4)' : 'rgba(0, 0, 0, 0.1)')" />
                     </template>
                 </svg>
 
                 <!-- Center Display Node -->
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full border border-[#eaeaea] bg-[#ffffff] z-10 flex flex-col items-center justify-center p-8 text-center shadow-[0_10px_40px_rgba(0,0,0,0.08)] cursor-pointer hover:border-black hover:shadow-[0_12px_45px_rgba(0,0,0,0.12)] transition-all group"
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full border border-[#eaeaea] dark:border-white/10 bg-[#ffffff] dark:bg-[#111111] z-10 flex flex-col items-center justify-center p-8 text-center shadow-[0_10px_40px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] cursor-pointer hover:border-black dark:hover:border-white hover:shadow-[0_12px_45px_rgba(0,0,0,0.12)] transition-all group"
                      @click="selectedStep = steps.find(s => s.id === activeStep); showModal = true">
                     <template x-for="step in steps" :key="'center-'+step.id">
                         <div x-show="activeStep === step.id" class="detail-enter">
                             <div class="text-[#888] font-mono text-xs mb-2 uppercase font-semibold tracking-widest">Stage <span x-text="step.id"></span></div>
-                            <h3 class="text-xl font-heading font-bold mb-2 text-black group-hover:text-gray-600 transition-colors" x-text="step.title"></h3>
-                            <p class="text-muted text-xs leading-relaxed mb-4 line-clamp-3" x-text="step.desc"></p>
-                            <div class="text-[10px] font-mono font-semibold text-black uppercase tracking-wider border-b border-black inline-block pb-0.5">Click to Expand &rarr;</div>
+                            <h3 class="text-xl font-heading font-bold mb-2 text-black dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" x-text="step.title"></h3>
+                            <p class="text-muted dark:text-gray-400 text-xs leading-relaxed mb-4 line-clamp-3" x-text="step.desc"></p>
+                            <div class="text-[10px] font-mono font-semibold text-black dark:text-white uppercase tracking-wider border-b border-black dark:border-white inline-block pb-0.5">Click to Expand &rarr;</div>
                         </div>
                     </template>
                 </div>
@@ -239,21 +269,21 @@
 
         <!-- Mobile Stepper Fallback (Hidden on md and up) -->
         <div class="md:hidden max-w-xl mx-auto" data-aos="fade-up">
-            <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px before:h-full before:w-[1px] before:bg-[#eaeaea]">
+            <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px before:h-full before:w-[1px] before:bg-[#eaeaea] dark:before:bg-white/10">
                 <template x-for="step in steps" :key="'mobile-'+step.id">
                     <div class="relative flex items-start gap-6 group is-active cursor-pointer" @click="activeStep = step.id">
                         <!-- Icon -->
                         <div class="flex items-center justify-center w-10 h-10 rounded-full border shrink-0 z-10 transition-colors mt-1 shadow-sm"
-                             :class="activeStep === step.id ? 'bg-black border-black text-white' : 'bg-[#fff] border-[#eaeaea] text-[#555]'">
+                             :class="activeStep === step.id ? 'bg-black dark:bg-white border-black dark:border-white text-white dark:text-black' : 'bg-[#fff] dark:bg-[#111111] border-[#eaeaea] dark:border-white/10 text-[#555] dark:text-gray-400'">
                             <span class="font-mono text-sm font-medium" x-text="step.id"></span>
                         </div>
                         <!-- Card -->
                         <div class="flex-grow p-6 rounded-lg border transition-all shadow-sm"
-                             :class="activeStep === step.id ? 'border-gray-400 bg-[#fdfdfd]' : 'border-[#eaeaea] bg-[#ffffff]'">
-                            <div class="font-heading font-bold text-lg mb-2 text-black" x-text="step.title"></div>
+                             :class="activeStep === step.id ? 'border-gray-400 dark:border-gray-500 bg-[#fdfdfd] dark:bg-[#161616]' : 'border-[#eaeaea] dark:border-white/10 bg-[#ffffff] dark:bg-[#111111]'">
+                            <div class="font-heading font-bold text-lg mb-2 text-black dark:text-white" x-text="step.title"></div>
                             <div x-show="activeStep === step.id" x-collapse>
-                                <div class="text-sm text-muted leading-relaxed mb-4" x-text="step.desc"></div>
-                                <button @click.stop="selectedStep = step; showModal = true" class="text-xs font-mono font-semibold text-black uppercase tracking-wider border-b border-black pb-0.5">View Full Specs &rarr;</button>
+                                <div class="text-sm text-muted dark:text-gray-400 leading-relaxed mb-4" x-text="step.desc"></div>
+                                <button @click.stop="selectedStep = step; showModal = true" class="text-xs font-mono font-semibold text-black dark:text-white uppercase tracking-wider border-b border-black dark:border-white pb-0.5">View Full Specs &rarr;</button>
                             </div>
                         </div>
                     </div>
@@ -283,16 +313,16 @@
              x-transition:leave="transition ease-in duration-200 transform"
              x-transition:leave-start="opacity-100 scale-100 translate-y-0"
              x-transition:leave-end="opacity-0 scale-95 translate-y-4"
-             class="bg-white rounded-xl shadow-2xl border border-[#eaeaea] max-w-xl w-full p-8 relative overflow-hidden"
+             class="bg-white dark:bg-[#111111] rounded-xl shadow-2xl border border-[#eaeaea] dark:border-white/10 max-w-xl w-full p-8 relative overflow-hidden"
              @click.stop>
              
             <!-- Header -->
             <div class="flex justify-between items-start mb-6">
                 <div>
                     <span class="font-mono text-xs font-semibold text-[#888] uppercase tracking-widest block mb-1" x-text="`Stage 0${selectedStep?.id} of 07`"></span>
-                    <h3 class="text-2xl font-heading font-bold text-black" x-text="selectedStep?.title"></h3>
+                    <h3 class="text-2xl font-heading font-bold text-black dark:text-white" x-text="selectedStep?.title"></h3>
                 </div>
-                <button @click="showModal = false" class="text-gray-400 hover:text-black transition-colors p-1 rounded-full hover:bg-gray-100">
+                <button @click="showModal = false" class="text-gray-400 hover:text-black dark:hover:text-white transition-colors p-1 rounded-full hover:bg-gray-100 dark:hover:bg-neutral-800">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
@@ -301,17 +331,17 @@
             <div class="space-y-6 text-left">
                 <!-- Full Details -->
                 <div>
-                    <h4 class="text-xs font-mono font-semibold text-black uppercase tracking-wider mb-2">Detailed Workflow</h4>
-                    <p class="text-muted text-sm leading-relaxed" x-text="selectedStep?.details"></p>
+                    <h4 class="text-xs font-mono font-semibold text-black dark:text-white uppercase tracking-wider mb-2">Detailed Workflow</h4>
+                    <p class="text-muted dark:text-gray-400 text-sm leading-relaxed" x-text="selectedStep?.details"></p>
                 </div>
                 
                 <!-- Deliverables -->
                 <div>
-                    <h4 class="text-xs font-mono font-semibold text-black uppercase tracking-wider mb-3">Key Deliverables</h4>
+                    <h4 class="text-xs font-mono font-semibold text-black dark:text-white uppercase tracking-wider mb-3">Key Deliverables</h4>
                     <ul class="space-y-2">
                         <template x-for="item in selectedStep?.deliverables" :key="item">
-                            <li class="flex items-start gap-2.5 text-sm text-muted">
-                                <svg class="w-4 h-4 text-black shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"></path></svg>
+                            <li class="flex items-start gap-2.5 text-sm text-muted dark:text-gray-400">
+                                <svg class="w-4 h-4 text-black dark:text-white shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4"></path></svg>
                                 <span x-text="item"></span>
                             </li>
                         </template>
@@ -319,20 +349,20 @@
                 </div>
                 
                 <!-- Tech / Tools -->
-                <div class="pt-4 border-t border-[#eaeaea]">
-                    <h4 class="text-xs font-mono font-semibold text-black uppercase tracking-wider mb-1.5">Key Technologies & Standards</h4>
-                    <p class="text-xs text-[#555] font-mono bg-gray-50 px-3 py-2 rounded border border-[#eaeaea] inline-block" x-text="selectedStep?.tech"></p>
+                <div class="pt-4 border-t border-[#eaeaea] dark:border-white/10">
+                    <h4 class="text-xs font-mono font-semibold text-black dark:text-white uppercase tracking-wider mb-1.5">Key Technologies & Standards</h4>
+                    <p class="text-xs text-[#555] dark:text-gray-400 font-mono bg-gray-50 dark:bg-neutral-900 px-3 py-2 rounded border border-[#eaeaea] dark:border-white/10 inline-block" x-text="selectedStep?.tech"></p>
                 </div>
             </div>
             
             <!-- Navigation Footer inside Modal -->
-            <div class="mt-8 pt-6 border-t border-[#eaeaea] flex justify-between items-center">
+            <div class="mt-8 pt-6 border-t border-[#eaeaea] dark:border-white/10 flex justify-between items-center">
                 <button @click="
                     let prevId = selectedStep.id - 1;
                     if (prevId < 1) prevId = 7;
                     selectedStep = steps.find(s => s.id === prevId);
                     activeStep = prevId;
-                " class="text-xs font-mono font-semibold text-muted hover:text-black flex items-center gap-1">
+                " class="text-xs font-mono font-semibold text-muted dark:text-gray-400 hover:text-black dark:hover:text-white flex items-center gap-1">
                     &larr; Prev Stage
                 </button>
                 <button @click="
@@ -340,7 +370,7 @@
                     if (nextId > 7) nextId = 1;
                     selectedStep = steps.find(s => s.id === nextId);
                     activeStep = nextId;
-                " class="text-xs font-mono font-semibold text-black hover:text-gray-600 flex items-center gap-1">
+                " class="text-xs font-mono font-semibold text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 flex items-center gap-1">
                     Next Stage &rarr;
                 </button>
             </div>
