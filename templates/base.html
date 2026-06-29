@@ -4,7 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>neurotech - Design Verification</title>
+    <title>{% block title %}Neurotech Circuits | Premium Semiconductor Design Verification & ARM SoC Verification Pune{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Neurotech Circuits (NeurotechC) is a premium engineering firm in Pune with 20+ years of experience in ASIC, IP, and SoC design verification using SV/UVM, ARM SoC, RISC-V, and FPGA prototyping.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}ARM SoC Verification, Design Verification SV/UVM, ASIC IP SoC verification, RISC-V verification, AMBA interconnects, UPF power verification{% endblock %}">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+
+    <!-- Open Graph (OG) Meta Tags for Facebook / LinkedIn / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Neurotech Circuits | Semiconductor Design Verification & ARM SoC Verification{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Ensure functional correctness of complex SoC and IP designs with Neurotech Circuits (NeurotechC). 20+ years of expertise in SV/UVM, ASIC, IP, SoC, RISC-V, and ARM SoC verification in Pune.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% if request.is_secure %}https://{% else %}http://{% endif %}{{ request.get_host }}{% static 'images/logo1.png' %}{% endblock %}">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{% block twitter_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}Neurotech Circuits | Semiconductor Design Verification{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Ensure functional correctness of complex SoC and IP designs with Neurotech Circuits.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{% if request.is_secure %}https://{% else %}http://{% endif %}{{ request.get_host }}{% static 'images/logo1.png' %}{% endblock %}">
+
+    <!-- Schema Markup Injection Block -->
+    {% block schema_markup %}{% endblock %}
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
     <!-- Fonts -->
@@ -15,6 +38,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Tailwind & Alpine -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <!-- AOS Animation JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

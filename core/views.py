@@ -184,3 +184,35 @@ def admin_logout(request):
     auth_logout(request)
     messages.success(request, "You have been logged out successfully.")
     return redirect('admin_login')
+
+from django.http import HttpResponse
+from django.views.decorators.http import require_GET
+
+@require_GET
+def robots_txt(request):
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+        "Disallow: /admin/",
+        "Disallow: /admin-dashboard/",
+        "Disallow: /admin-login/",
+        "Disallow: /admin-logout/",
+        "",
+        "User-agent: GPTBot",
+        "Allow: /",
+        "",
+        "User-agent: PerplexityBot",
+        "Allow: /",
+        "",
+        "User-agent: Google-Extended",
+        "Allow: /",
+        "",
+        "User-agent: ClaudeBot",
+        "Allow: /",
+        "",
+        "User-agent: Applebot-Extended",
+        "Allow: /",
+        "",
+        f"Sitemap: {request.build_absolute_uri('/sitemap.xml')}"
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")

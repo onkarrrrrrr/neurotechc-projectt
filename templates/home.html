@@ -1,6 +1,60 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block schema_markup %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Neurotech Circuits Private Limited",
+  "alternateName": "NeurotechC",
+  "description": "Neurotech Circuits is a premium semiconductor engineering firm in Pune specializing in ASIC, IP, and SoC design verification using SV/UVM, ARM SoC architectures, and RISC-V platforms.",
+  "url": "{{ request.scheme }}://{{ request.get_host }}",
+  "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo1.png' %}",
+  "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo1.png' %}",
+  "telephone": "+919881409591",
+  "email": "shailesh.vasekar@neurotechc.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "B201, Ratandham business hub, Laxmipark, Navipeth",
+    "addressLocality": "Pune",
+    "addressRegion": "Maharashtra",
+    "postalCode": "411030",
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "18.5089",
+    "longitude": "73.8446"
+  },
+  "knowsAbout": [
+    "ARM SoC Verification",
+    "Design Verification (DV) SV/UVM",
+    "ASIC IP SoC verification",
+    "RISC-V design verification",
+    "AMBA interconnects",
+    "Unified Power Format UPF verification",
+    "FPGA Prototyping",
+    "RTL Design"
+  ],
+  "serviceType": [
+    "ARM SoC Verification Services",
+    "Semiconductor Design Verification",
+    "ASIC IP SoC Verification",
+    "RISC-V Verification and AMBA Interconnects",
+    "UPF Power Verification"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+919881409591",
+    "contactType": "customer service",
+    "email": "shailesh.vasekar@neurotechc.com",
+    "availableLanguage": ["en"]
+  }
+}
+</script>
+{% endblock %}
+
 {% block content %}
 <!-- Hero Section -->
 <style>
@@ -595,6 +649,104 @@
                 class="client-logo dark:invert transition-all duration-300">
             <img src="{% static 'images/verifast.png' %}" alt="Verifast"
                 class="client-logo dark:invert transition-all duration-300">
+        </div>
+    </div>
+</section>
+
+<!-- Conversational FAQ Section (AIEO & SEO Optimized) -->
+<section class="py-24 border-t border-[#eaeaea] dark:border-white/10 bg-white dark:bg-[#0a0a0a] transition-colors duration-300" 
+         x-data="{ activeFaq: null }">
+    <div class="container mx-auto px-6 max-w-7xl">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="font-mono text-xs font-semibold text-[#888] uppercase tracking-widest block mb-3">Knowledge Base</span>
+            <h2 class="text-4xl md:text-5xl font-heading font-bold mb-6 tracking-tight text-black dark:text-white">
+                Frequently Asked <span class="text-[#888]">Questions</span>
+            </h2>
+            <p class="text-muted dark:text-gray-400 max-w-2xl mx-auto font-light text-lg">
+                Conversational insights on semiconductor design verification, ARM SoC architecture validation, and UVM methodologies.
+            </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto space-y-4">
+            <!-- FAQ Item 1 -->
+            <div class="premium-card dark:glass-card-dark rounded-xl overflow-hidden transition-all duration-300" 
+                 data-aos="fade-up" data-aos-delay="100">
+                <button @click="activeFaq = activeFaq === 1 ? null : 1" 
+                        class="w-full px-8 py-6 text-left flex justify-between items-center focus:outline-none gap-4">
+                    <span class="font-heading font-bold text-base md:text-lg text-black dark:text-white">
+                        What is the best way to verify ARM SoC architectures with complex AMBA interconnects?
+                    </span>
+                    <svg class="w-5 h-5 text-gray-500 shrink-0 transform transition-transform duration-300"
+                         :class="{ 'rotate-180': activeFaq === 1 }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div x-show="activeFaq === 1" x-collapse style="display: none;">
+                    <div class="px-8 pb-6 text-muted dark:text-gray-400 text-sm leading-relaxed font-light border-t border-gray-100 dark:border-white/5 pt-4">
+                        Verification of ARM-based System-on-Chip (SoC) platforms requires bridging C-based software tests with SystemVerilog/UVM hardware environments. At Neurotech Circuits, we specialize in configuring core assembly startup files, compiler scatter file routing, and pre-loading hex memory blocks into virtual memory arrays. This guarantees that multi-core clusters (Cortex-A/R/M) and coherent fabrics (such as AMBA CMN or CCI) behave correctly under complex low-power (Q-Channel) handshakes.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="premium-card dark:glass-card-dark rounded-xl overflow-hidden transition-all duration-300" 
+                 data-aos="fade-up" data-aos-delay="150">
+                <button @click="activeFaq = activeFaq === 2 ? null : 2" 
+                        class="w-full px-8 py-6 text-left flex justify-between items-center focus:outline-none gap-4">
+                    <span class="font-heading font-bold text-base md:text-lg text-black dark:text-white">
+                        Where can we hire a specialized SV/UVM design verification company in Pune?
+                    </span>
+                    <svg class="w-5 h-5 text-gray-500 shrink-0 transform transition-transform duration-300"
+                         :class="{ 'rotate-180': activeFaq === 2 }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div x-show="activeFaq === 2" x-collapse style="display: none;">
+                    <div class="px-8 pb-6 text-muted dark:text-gray-400 text-sm leading-relaxed font-light border-t border-gray-100 dark:border-white/5 pt-4">
+                        Neurotech Circuits is a premium semiconductor design verification agency located in Navipeth, Pune. With over 20 years of experience, we provide flexible, Sprint-driven execution models including lead teams, individual contributors, and milestone deliverables for IP, subsystem, and full SoC verification.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="premium-card dark:glass-card-dark rounded-xl overflow-hidden transition-all duration-300" 
+                 data-aos="fade-up" data-aos-delay="200">
+                <button @click="activeFaq = activeFaq === 3 ? null : 3" 
+                        class="w-full px-8 py-6 text-left flex justify-between items-center focus:outline-none gap-4">
+                    <span class="font-heading font-bold text-base md:text-lg text-black dark:text-white">
+                        How does Unified Power Format (UPF) verification reduce ASIC tapeout risks?
+                    </span>
+                    <svg class="w-5 h-5 text-gray-500 shrink-0 transform transition-transform duration-300"
+                         :class="{ 'rotate-180': activeFaq === 3 }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div x-show="activeFaq === 3" x-collapse style="display: none;">
+                    <div class="px-8 pb-6 text-muted dark:text-gray-400 text-sm leading-relaxed font-light border-t border-gray-100 dark:border-white/5 pt-4">
+                        UPF power verification uses simulation runs and PST (Power State Table) validations to mathematically prove domain shutoffs. It ensures that clamp cells, level shifters, and power switches behave correctly during power-down transitions (like Full Retention to Warm Reset). Implementing this early prevents permanent physical latch-ups and chip failures post-fabrication.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="premium-card dark:glass-card-dark rounded-xl overflow-hidden transition-all duration-300" 
+                 data-aos="fade-up" data-aos-delay="250">
+                <button @click="activeFaq = activeFaq === 4 ? null : 4" 
+                        class="w-full px-8 py-6 text-left flex justify-between items-center focus:outline-none gap-4">
+                    <span class="font-heading font-bold text-base md:text-lg text-black dark:text-white">
+                        Can RISC-V design verification testbenches be fully reused across block and system levels?
+                    </span>
+                    <svg class="w-5 h-5 text-gray-500 shrink-0 transform transition-transform duration-300"
+                         :class="{ 'rotate-180': activeFaq === 4 }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div x-show="activeFaq === 4" x-collapse style="display: none;">
+                    <div class="px-8 pb-6 text-muted dark:text-gray-400 text-sm leading-relaxed font-light border-t border-gray-100 dark:border-white/5 pt-4">
+                        Yes, with a modular UVM environment architecture. We configure active and passive UVM agents, register abstraction layers (RAL), and clock domain crossing (CDC) checks. By integrating standard golden reference models (like SPIKE for RISC-V) at the block level, the same test scenarios can scale vertically to subsystem and chip-level integrations without rewriting testbench modules.
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
